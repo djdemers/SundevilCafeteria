@@ -1,7 +1,7 @@
-# Compiled class file
+# Compiled class files
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -19,6 +19,85 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# Maven specific files
+target/
+!target/classes/
+!target/libs/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# IntelliJ IDEA files
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# VS Code settings
+.vscode/
+
+# Gradle files (if someone mistakenly adds them)
+.gradle/
+build/
+
+# Java specific files
+*.class
+*.jar
+*.war
+*.ear
+*.rar
+
+# OS generated files #
+.DS_Store
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Eclipse specific files
+.project
+.classpath
+.csettings/
+.settings/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+*.bak
+*.old
+
+# JRebel specific
+rebel.xml
+
+# Jboss specific
+**/hs_err_pid*
+
+# Logs and temp files
+logs/
+*.log
+*.tmp
+*.out
+*.pid
+*.gz
+
+# IDE config directories #
+.idea/
+.vscode/
+
+# Exclude Maven Wrapper files if you want the project to be fully Maven-wrapper independent
+#mvnw
+#mvnw.cmd
+#.mvn/
+
+# JavaFX configuration (user-specific)
+javapolicy
