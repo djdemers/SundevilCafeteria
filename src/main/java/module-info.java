@@ -17,5 +17,5 @@ module com.domain {
 
     exports com.domain.ui;
     exports com.domain.controller;
-    //exports com.domain.model;
+    exports com.domain.model;
 }
