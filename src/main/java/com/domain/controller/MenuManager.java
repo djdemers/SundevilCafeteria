@@ -31,7 +31,7 @@ public class MenuManager {
         try {
             double itemPrice = Double.parseDouble(itemPriceText);
             MenuItem newItem = new MenuItem(itemName, itemPrice, "Description");
-            menu.addItem(newItem);
+            menu.addMenuItem(newItem);
             statusLabel.setText("Item added: " + itemName);
         } catch (NumberFormatException e) {
             statusLabel.setText("Invalid price format");
@@ -41,7 +41,7 @@ public class MenuManager {
     @FXML
     private void handleRemoveItem() {
         String itemName = itemNameField.getText();
-        boolean success = menu.getItems().removeIf(item -> item.getName().equalsIgnoreCase(itemName));
+        boolean success = menu.getMenuItems().removeIf(item -> item.getName().equalsIgnoreCase(itemName));
         if (success) {
             statusLabel.setText("Item removed: " + itemName);
         } else {

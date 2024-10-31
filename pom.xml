@@ -18,6 +18,13 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- JavaFX Dependencies -->
         <dependency>
             <groupId>org.openjfx</groupId>

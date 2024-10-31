@@ -1,0 +1,33 @@
+package com.domain.controller;
+
+import com.domain.model.Order;
+import com.domain.model.OrderFactory;
+import java.util.List;
+
+public class CreateOrderCommand implements Command {
+    private List<Order> orderList;
+    private OrderFactory orderFactory;
+    private Order order;
+    private String orderId;
+
+    public CreateOrderCommand(List<Order> orderList, OrderFactory orderFactory, String orderId) {
+        this.orderList = orderList;
+        this.orderFactory = orderFactory;
+        this.orderId = orderId;
+    }
+
+    @Override
+    public void execute() {
+        order = orderFactory.createOrder(orderId);
+        orderList.add(order);
+        System.out.println("Order created: " + orderId);
+    }
+
+    @Override
+    public void undo() {
+        if (order != null) {
+            orderList.remove(order);
+            System.out.println("Order creation undone: " + orderId);
+        }
+    }
+}

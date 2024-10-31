@@ -1,3 +1,4 @@
+// Order Class (Observer Pattern)
 package com.domain.model;
 
 import java.util.ArrayList;
@@ -5,37 +6,42 @@ import java.util.List;
 
 public class Order {
     private String orderId;
-    private Customer customer;
-    private List<MenuItem> items;
+    private String status;
+    private List<Observer> observers;
 
-    public Order(String orderId, Customer customer) {
+    public Order(String orderId) {
         this.orderId = orderId;
-        this.customer = customer;
-        this.items = new ArrayList<>();
+        this.status = "Pending";
+        this.observers = new ArrayList<>();
     }
 
-    public void addItem(MenuItem item) {
-        items.add(item);
+    // Observer Management
+    public void addObserver(Observer observer) {
+        observers.add(observer);
     }
 
-    public double calculateTotal() {
-        double total = 0.0;
-        for (MenuItem item : items) {
-            total += item.getPrice();
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(status);
         }
-        return total;
     }
 
-    // Getters for orderId, customer, and items
+    // Update Order Status and notify observers
+    public void updateStatus(String newStatus) {
+        this.status = newStatus;
+        notifyObservers();
+    }
+
+    // Getters
     public String getOrderId() {
         return orderId;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public List<MenuItem> getItems() {
-        return items;
+    public String getStatus() {
+        return status;
     }
 }
