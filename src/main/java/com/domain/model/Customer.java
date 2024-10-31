@@ -7,9 +7,8 @@ public class Customer extends User {
     private String customerId;
     private List<Order> orderHistory;
 
-    public Customer(String username, String password, String customerId) {
-        super(username, password);
-        this.customerId = customerId;
+    public Customer(String username, String password) {
+        super(username, password, "customer");
         this.orderHistory = new ArrayList<>();
     }
 

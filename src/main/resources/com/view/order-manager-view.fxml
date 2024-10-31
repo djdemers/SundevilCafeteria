@@ -2,9 +2,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.domain.controller.OrderManager">
+    <Label text="Order Management" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
     <TextField fx:id="customerNameField" promptText="Customer Name"/>
     <TextField fx:id="orderDetailsField" promptText="Order Details"/>
-    <Button text="Place Order" onAction="#handlePlaceOrder"/>
-    <Button text="Cancel Order" onAction="#handleCancelOrder"/>
-    <Label fx:id="orderStatusLabel"/>
+    <ListView fx:id="orderListView" prefHeight="200.0" prefWidth="300.0" />
+    <Button text="Update Order Status" onAction="#handleUpdateOrderStatus" />
+    <Button text="View Order Details" onAction="#handleViewOrderDetails" />
+    <Label fx:id="orderStatusLabel" style="-fx-text-fill: red;" />
 </VBox>

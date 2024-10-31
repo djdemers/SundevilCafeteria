@@ -3,11 +3,13 @@ package com.domain.model;
 public abstract class User {
     private String username;
     private String password;
+    private String role;
 
     // Constructor
-    public User(String username, String password) {
+    public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     // Getters and setters
@@ -27,9 +29,16 @@ public abstract class User {
         this.password = password;
     }
 
-    // Authentication method
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public boolean authenticate(String password) {
         return this.password.equals(password);
     }
-
 }
+

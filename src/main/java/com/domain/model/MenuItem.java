@@ -2,21 +2,27 @@ package com.domain.model;
 
 public class MenuItem {
     private String name;
-    private double price;
+    private String type;
     private String description;
+    private double price;
 
-    public MenuItem(String name, double price, String description) {
+    public MenuItem(String name, String type, String description, double price) {
         this.name = name;
-        this.price = price;
+        this.type = type;
         this.description = description;
+        this.price = price;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getType() {
+        return type;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public double getPrice() {
@@ -25,10 +31,6 @@ public class MenuItem {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void setDescription(String description) {

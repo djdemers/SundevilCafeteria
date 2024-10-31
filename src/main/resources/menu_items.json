@@ -1,0 +1,216 @@
+{
+  "menuItems": [
+    {
+      "name": "Pancakes",
+      "type": "Breakfast",
+      "description": "Fluffy pancakes served with butter and maple syrup, often accompanied by bacon or sausage.",
+      "price": 5.99
+    },
+    {
+      "name": "Eggs Benedict",
+      "type": "Breakfast",
+      "description": "Poached eggs served on English muffins with Canadian bacon or ham, topped with hollandaise sauce.",
+      "price": 6.99
+    },
+    {
+      "name": "Omelets",
+      "type": "Breakfast",
+      "description": "Fluffy eggs folded over a variety of fillings such as cheese, vegetables, bacon, ham, or mushrooms.",
+      "price": 4.99
+    },
+    {
+      "name": "French Toast",
+      "type": "Breakfast",
+      "description": "Slices of bread dipped in a mixture of eggs and milk, then grilled until golden brown and served with syrup and powdered sugar.",
+      "price": 4.99
+    },
+    {
+      "name": "Breakfast Burrito",
+      "type": "Breakfast",
+      "description": "Tortilla filled with scrambled eggs, cheese, potatoes, and a choice of bacon, sausage, or chorizo, often served with salsa and sour cream.",
+      "price": 4.99
+    },
+    {
+      "name": "Bagel with Lox",
+      "type": "Breakfast",
+      "description": "Toasted bagel topped with cream cheese, smoked salmon (lox), capers, red onion, and sometimes tomato slices.",
+      "price": 4.99
+    },
+    {
+      "name": "Biscuits and Gravy",
+      "type": "Breakfast",
+      "description": "Flaky biscuits topped with creamy sausage gravy, served hot and often accompanied by eggs."
+    ,
+      "price": 4.99
+    },
+    {
+      "name": "Belgian Waffles",
+      "type": "Breakfast",
+      "description": "Crispy waffles topped with whipped cream, fresh berries, and maple syrup.",
+      "price": 4.99
+    },
+    {
+      "name": "Breakfast Sandwich",
+      "type": "Breakfast",
+      "description": "English muffin, biscuit, or croissant filled with eggs, cheese, and a choice of sausage, bacon, or ham.",
+      "price": 4.99
+    },
+    {
+      "name": "Greek Yogurt Parfait",
+      "type": "Breakfast",
+      "description": "Layers of Greek yogurt, granola, and fresh berries or fruit, sometimes drizzled with honey or maple syrup.",
+      "price": 4.99
+    },
+    {
+      "name": "Cheeseburger",
+      "type": "Lunch",
+      "description": "Classic American favorite, typically served with lettuce, tomato, onion, pickles,and condiments on a bun.",
+      "price": 8.99
+    },
+    {
+      "name": "Club Sandwich",
+      "type": "Lunch",
+      "description": "Triple-decker sandwich with layers of turkey or chicken, bacon, lettuce, tomato,and mayo on toasted bread.",
+      "price": 8.99
+    },
+    {
+      "name": "Caesar Salad",
+      "type": "Lunch",
+      "description": "Romaine lettuce tossed with Caesar dressing, croutons, and Parmesan cheese,often topped with grilled chicken or shrimp.",
+      "price": 7.99
+    },
+    {
+      "name": "BBQ Ribs",
+      "type": "Lunch",
+      "description": "Slow-cooked pork or beef ribs slathered in barbecue sauce, served with coleslaw and cornbread.",
+      "price": 7.99
+    },
+    {
+      "name": "Philly Cheese-steak",
+      "type": "Lunch",
+      "description": "Sliced steak, often with grilled onions and peppers, topped with melted cheese on a hoagie roll.",
+      "price": 7.99
+    },
+    {
+      "name": "New England Clam Chowder",
+      "type": "Lunch",
+      "description": "Cream-based soup with clams, potatoes, onions, and celery, seasoned with herbs and spices.",
+      "price": 7.99
+    },
+    {
+      "name": "Cobb Salad",
+      "type": "Lunch",
+      "description": "Mixed greens topped with grilled chicken, bacon, avocado, hard-boiled eggs, tomatoes, blue cheese, and vinaigrette dressing.",
+      "price": 5.99
+    },
+    {
+      "name": "Pulled Pork Sandwich",
+      "type": "Lunch",
+      "description": "Slow-cooked pork shoulder shredded and mixed with barbecue sauce,\nserved on a bun with pickles and coleslaw.",
+      "price": 7.99
+    },
+    {
+      "name": "Fish Tacos",
+      "type": "Lunch",
+      "description": "Soft corn tortillas filled with grilled or fried fish, cabbage slaw, avocado, salsa, and lime.",
+      "price": 7.99
+    },
+    {
+      "name": "Shrimp Scampi",
+      "type": "Dinner",
+      "description": "Shrimp sautéed in garlic butter and white wine sauce, served over linguine pasta with a sprinkle of Parmesan cheese and parsley.",
+      "price": 19.99
+    },
+    {
+      "name": "BBQ Brisket",
+      "type": "Dinner",
+      "description": "Slow-smoked beef brisket served with coleslaw, baked beans, cornbread, and pickles.",
+      "price": 19.99
+    },
+    {
+      "name": "Vegetarian Lasagna",
+      "type": "Dinner",
+      "description": "Layers of pasta filled with ricotta cheese, spinach, mushrooms, and marinara sauce, topped with mozzarella cheese and baked until golden.",
+      "price": 19.99
+    },
+    {
+      "name": "Stuffed Bell Peppers",
+      "type": "Dinner",
+      "description": "Bell peppers stuffed with a mixture of ground beef or turkey, rice, tomatoes, and cheese, baked until tender.",
+      "price": 12.99
+    },
+    {
+      "name": "Lobster Tail Dinner",
+      "type": "Dinner",
+      "description": "Broiled or grilled lobster tail served with drawn butter, roasted potatoes or rice, steamed vegetables, and a wedge of lemon.",
+      "price": 17.99
+    },
+    {
+      "name": "Taco Night",
+      "type": "Dinner",
+      "description": "Build-your-own taco dinner with seasoned ground beef or chicken, soft or crispy taco shells, lettuce, tomatoes, cheese, salsa, sour cream, and guacamole.",
+      "price": 17.99
+    },
+    {
+      "name": "Buffalo Wings",
+      "type": "Dinner",
+      "description": "Deep-fried chicken wings coated in spicy buffalo sauce, served with celery sticks and blue cheese dressing.",
+      "price": 17.99
+    },
+    {
+      "name": "Steakhouse Dinner",
+      "type": "Dinner",
+      "description": "A classic American favorite featuring a grilled steak (such as ribeye, filet mignon, or New York strip) served with sides like mashed potatoes, steamed vegetables, and a salad.",
+      "price": 17.99
+    },
+    {
+      "name": "Grilled Salmon",
+      "type": "Dinner",
+      "description": "Fresh salmon fillet grilled and served with rice pilaf or roasted potatoes, steamed asparagus, and a lemon wedge.",
+      "price": 17.99
+    },
+    {
+      "name": "Roast Chicken",
+      "type": "Dinner",
+      "description": "Herb-roasted or rotisserie chicken served with mashed potatoes, gravy, roasted vegetables, and a side of cranberry sauce.",
+      "price": 17.99
+    },
+    {
+      "name": "Spaghetti and Meatballs",
+      "type": "Dinner",
+      "description": "Spaghetti pasta topped with marinara sauce and meatballs, served with garlic bread and a side salad.",
+      "price": 17.99
+    },
+    {
+      "name": "Coffee",
+      "type": "Beverages",
+      "description": "Whether black, with cream and sugar, or as specialty drinks like lattes and cappuccinos",
+      "price": 2.49
+    },
+    {
+      "name": "Iced Tea",
+      "type": "Beverages",
+      "description": "Served sweetened or unsweetened with a lemon",
+      "price": 3.49
+    },
+    {
+      "name": "Soda (Soft Drinks)",
+      "type": "Beverages",
+      "description": "Varieties like cola (Coca-Cola, Pepsi), lemon-lime (Sprite, 7UP), root beer",
+      "price": 2.99
+    },
+    {
+      "name": "Craft Beer",
+      "type": "Beverages",
+      "description": "With a growing craft brewery scene",
+      "price": 3.49
+    },
+    {
+      "name": "Bottled Water",
+      "type": "Beverages",
+      "description": "Both still or sparkling",
+      "price": 3.49
+    }
+  ]
+
+}

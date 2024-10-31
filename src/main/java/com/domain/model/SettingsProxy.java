@@ -1,27 +1,30 @@
+// SettingsProxy Class for Role-Based Access Control
 package com.domain.model;
 
 public class SettingsProxy {
-    private SystemSettings settings;
+    private SystemSettings systemSettings;
     private String currentRole;
 
-    public SettingsProxy(SystemSettings settings, String currentRole) {
-        this.settings = settings;
-        this.currentRole = currentRole;
+    public SettingsProxy() {
+        this.systemSettings = new SystemSettings();
     }
 
-    public String getSettingsValue() {
-        if (currentRole.equals("Manager")) {
-            return settings.getSettingValue();
+    public void setRole(String role) {
+        this.currentRole = role;
+    }
+
+    public void updateSettings(String setting, String value) {
+        if (currentRole == null) {
+            System.out.println("Access denied: No role assigned");
+        } else if (currentRole.equals("Manager")) {
+            systemSettings.adjustSettings(setting, value);
+            System.out.println("Settings updated by Manager: " + setting + " set to " + value);
         } else {
-            throw new SecurityException("Access Denied");
+            System.out.println("Access denied: Insufficient privileges to modify settings");
         }
     }
 
-    public void updateSettingsValue(String value) {
-        if (currentRole.equals("Manager")) {
-            settings.setSettingValue(value);
-        } else {
-            throw new SecurityException("Access Denied");
-        }
+    public String getSettings(String setting) {
+        return systemSettings.getSetting(setting);
     }
 }

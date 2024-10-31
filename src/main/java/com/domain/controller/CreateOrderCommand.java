@@ -9,16 +9,20 @@ public class CreateOrderCommand implements Command {
     private OrderFactory orderFactory;
     private Order order;
     private String orderId;
+    private String customerName;
+    private String orderDetails;
 
-    public CreateOrderCommand(List<Order> orderList, OrderFactory orderFactory, String orderId) {
+    public CreateOrderCommand(List<Order> orderList, OrderFactory orderFactory, String orderId, String customerName, String orderDetails) {
         this.orderList = orderList;
         this.orderFactory = orderFactory;
         this.orderId = orderId;
+        this.customerName = customerName;
+        this.orderDetails = orderDetails;
     }
 
     @Override
     public void execute() {
-        order = orderFactory.createOrder(orderId);
+        order = orderFactory.createOrder(orderId, customerName, orderDetails);
         orderList.add(order);
         System.out.println("Order created: " + orderId);
     }
@@ -31,3 +35,4 @@ public class CreateOrderCommand implements Command {
         }
     }
 }
+

@@ -1,126 +1,78 @@
 package com.domain.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import com.domain.model.Customer;
 import com.domain.model.Order;
-import com.domain.model.OrderFactory;
-import java.util.ArrayList;
+import com.domain.model.OrderManagerModel;
+import com.domain.model.OrderStatusObserver;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.event.ActionEvent;
+
 import java.util.List;
-import java.util.Stack;
 
 public class OrderManager {
-    @FXML
-    private TextField customerNameField;
 
     @FXML
-    private TextField orderDetailsField;
+    private ListView<String> orderListView;
 
     @FXML
-    private Label orderStatusLabel;
+    private Button updateOrderStatusButton;
 
-    private List<Order> orderList;
-    private OrderFactory orderFactory;
-    private Stack<Command> commandHistory;
+    @FXML
+    private Button viewOrderDetailsButton;
 
-    // Constructor for non-JavaFX usage
-    public OrderManager(OrderFactory orderFactory) {
-        this.orderList = new ArrayList<>();
-        this.orderFactory = orderFactory;
-        this.commandHistory = new Stack<>();
-    }
+    @FXML
+    private Label statusLabel;
 
-    // Constructor for JavaFX usage
+    private OrderManagerModel orderManagerModel;
+
     public OrderManager() {
-        this.orderFactory = new OrderFactory();
-        this.orderList = new ArrayList<>();
-        this.commandHistory = new Stack<>();
+        this.orderManagerModel = OrderManagerModel.getInstance(); // Singleton pattern for managing orders
     }
 
     @FXML
-    private void handlePlaceOrder() {
-        String customerName = customerNameField.getText();
-        String orderDetails = orderDetailsField.getText();
+    private void initialize() {
+        loadOrders();
+    }
 
-        if (!customerName.isEmpty() && !orderDetails.isEmpty()) {
-            // Test data for Customer object
-            String customerId = "custId";
-            String password = "defaultPassword"; // Placeholder password
-            Customer customer = new Customer(customerName, password, customerId);
-
-            // Generate an order ID
-            String orderId = "order_" + System.currentTimeMillis(); // Simple ID generation for demonstration
-            Order newOrder = new Order(orderId);
-            Command command = new CreateOrderCommand(orderList, orderFactory, orderId);
-            command.execute();
-            commandHistory.push(command);
-            orderStatusLabel.setText("Order placed for: " + customerName);
-        } else {
-            orderStatusLabel.setText("Please enter customer name and order details");
-        }
+    private void loadOrders() {
+        List<Order> orders = orderManagerModel.getAllOrders();
+        orderListView.setItems(FXCollections.observableArrayList(
+                orders.stream().map(Order::toString).toList()
+        ));
     }
 
     @FXML
-    private void handleCancelOrder() {
-        String orderId = orderDetailsField.getText();
+    private void handleUpdateOrderStatus(ActionEvent event) {
+        String selectedOrder = orderListView.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null) {
+            Order order = orderManagerModel.getOrderById(selectedOrder);
+            if (order != null) {
+                // Add an observer for demonstration purposes
+                OrderStatusObserver observer = new OrderStatusObserver("OrderManager");
+                order.addObserver(observer);
 
-        if (!orderId.isEmpty()) {
-            Command command = new CancelOrderCommand(orderList, orderId);
-            command.execute();
-            commandHistory.push(command);
-            orderStatusLabel.setText("Order with ID " + orderId + " has been cancelled");
-        } else {
-            orderStatusLabel.setText("Please enter a valid order ID to cancel");
-        }
-    }
+                // Update the order status and notify observers
+                order.updateStatus("Ready");
+                statusLabel.setText("Order status updated to 'Ready'.");
 
-    @FXML
-    private void handleUndoLastCommand() {
-        if (!commandHistory.isEmpty()) {
-            Command command = commandHistory.pop();
-            command.undo();
-            orderStatusLabel.setText("Last command undone");
-        } else {
-            orderStatusLabel.setText("No commands to undo");
-        }
-    }
-
-    public void createOrder(String orderId) {
-        Command command = new CreateOrderCommand(orderList, orderFactory, orderId);
-        command.execute();
-        commandHistory.push(command);
-    }
-
-    public void cancelOrder(String orderId) {
-        Command command = new CancelOrderCommand(orderList, orderId);
-        command.execute();
-        commandHistory.push(command);
-    }
-
-    public void updateOrderStatus(String orderId, String newStatus) {
-        Order order = findOrderById(orderId);
-        if (order != null) {
-            Command command = new UpdateOrderCommand(order, newStatus);
-            command.execute();
-            commandHistory.push(command);
-        }
-    }
-
-    public void undoLastCommand() {
-        if (!commandHistory.isEmpty()) {
-            Command command = commandHistory.pop();
-            command.undo();
-        }
-    }
-
-    // Finding an Order by ID to match the previous functionality
-    public Order findOrderById(String orderId) {
-        for (Order o : orderList) {
-            if (o.getOrderId().equals(orderId)) {
-                return o;
+                loadOrders(); // Refresh order list
             }
+        } else {
+            statusLabel.setText("Please select an order to update.");
         }
-        return null;
+    }
+
+    @FXML
+    private void handleViewOrderDetails(ActionEvent event) {
+        String selectedOrder = orderListView.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null) {
+            statusLabel.setText("Viewing details for: " + selectedOrder);
+        } else {
+            statusLabel.setText("Please select an order to view details.");
+        }
     }
 }
+
