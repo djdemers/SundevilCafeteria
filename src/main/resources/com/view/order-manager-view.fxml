@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.domain.controller.OrderManager">
+    <TextField fx:id="customerNameField" promptText="Customer Name"/>
+    <TextField fx:id="orderDetailsField" promptText="Order Details"/>
+    <Button text="Place Order" onAction="#handlePlaceOrder"/>
+    <Button text="Cancel Order" onAction="#handleCancelOrder"/>
+    <Label fx:id="orderStatusLabel"/>
+</VBox>

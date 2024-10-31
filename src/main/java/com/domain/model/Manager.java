@@ -1,12 +1,12 @@
 package com.domain.model;
 
-public class Manager {
+public class Manager extends User {
     private String managerId;
-    private String name;
 
-    public Manager(String managerId, String name) {
+    public Manager(String username, String password,  String managerId) {
+        super(username, password);
         this.managerId = managerId;
-        this.name = name;
+
     }
 
     public String getManagerId() {
@@ -15,14 +15,6 @@ public class Manager {
 
     public void setManagerId(String managerId) {
         this.managerId = managerId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void updateMenu(Menu menu) {

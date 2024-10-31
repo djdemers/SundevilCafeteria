@@ -3,14 +3,13 @@ package com.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer {
+public class Customer extends User {
     private String customerId;
-    private String name;
     private List<Order> orderHistory;
 
-    public Customer(String customerId, String name) {
+    public Customer(String username, String password, String customerId) {
+        super(username, password);
         this.customerId = customerId;
-        this.name = name;
         this.orderHistory = new ArrayList<>();
     }
 
@@ -29,13 +28,5 @@ public class Customer {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

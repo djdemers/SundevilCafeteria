@@ -10,12 +10,14 @@ module com.domain {
     //requires eu.hansolo.tilesfx;
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
 
-    opens com.domain.ui to javafx.fxml;
+    exports com.domain;
+    opens com.domain to javafx.fxml;
     opens com.domain.controller to javafx.fxml;
     //opens com.domain.model to javafx.fxml;
 
-    exports com.domain.ui;
-    exports com.domain.controller;
-    exports com.domain.model;
+    //exports com.domain.ui;
+    //exports com.domain.controller;
+    //exports com.domain.model;
 }

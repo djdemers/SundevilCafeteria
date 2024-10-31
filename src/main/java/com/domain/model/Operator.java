@@ -1,12 +1,11 @@
 package com.domain.model;
 
-public class Operator {
+public class Operator extends User {
     private String operatorId;
-    private String name;
 
-    public Operator(String operatorId, String name) {
+    public Operator(String username, String password, String operatorId) {
+        super(username, password);
         this.operatorId = operatorId;
-        this.name = name;
     }
 
     public String getOperatorId() {
@@ -16,15 +15,6 @@ public class Operator {
     public void setOperatorId(String operatorId) {
         this.operatorId = operatorId;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void updateOrderStatus() {
     }
 }
