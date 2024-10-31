@@ -11,10 +11,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>  <!-- Update this to match your Java version -->
+        <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <junit.version>5.9.1</junit.version>
-        <javafx.version>18.0.2</javafx.version>  <!-- Set your desired JavaFX version -->
+        <javafx.version>18.0.2</javafx.version>
     </properties>
 
     <dependencies>
