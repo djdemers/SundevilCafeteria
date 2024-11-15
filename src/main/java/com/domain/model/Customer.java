@@ -7,9 +7,15 @@ public class Customer extends User {
     private String customerId;
     private List<Order> orderHistory;
 
-    public Customer(String username, String password) {
-        super(username, password, "customer");
-        this.orderHistory = new ArrayList<>();
+    /**
+     * Constructs a Customer with the specified username and plain-text password.
+     * The password is hashed before being passed to the User constructor.
+     *
+     * @param username The customer's username.
+     * @param plainPassword The customer's plain-text password.
+     */
+    public Customer(String username, String plainPassword) {
+        super(username, com.domain.util.PasswordUtils.hashPassword(plainPassword), "CUSTOMER");
     }
 
     public void addOrder(Order order) {

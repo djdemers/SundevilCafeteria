@@ -1,25 +1,28 @@
 module com.domain {
 
-    //requires javafx.web;
-
-    //requires org.controlsfx.controls;
-    //requires com.dlsc.formsfx;
-    //requires net.synedra.validatorfx;
-    //requires org.kordamp.ikonli.javafx;
-    //requires org.kordamp.bootstrapfx.core;
-    //requires eu.hansolo.tilesfx;
+    // Required JavaFX modules
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.graphics;
+
+    // Required external libraries
     requires com.google.gson;
-
+    requires jbcrypt;
+    requires org.slf4j;
+    //requires logback.classic;
+    // Exported packages
     exports com.domain;
-    opens com.domain to javafx.fxml;
-    opens com.domain.controller to javafx.fxml;
-    opens com.domain.model to com.google.gson;
-    //opens com.domain.model to javafx.fxml;
 
-    //exports com.domain.ui;
-    //exports com.domain.controller;
-    //exports com.domain.model;
+    // Open packages to JavaFX for reflection (FXML)
+    opens com.domain to javafx.fxml;
+
+    // Open controller package to JavaFX for FXML injection
+    opens com.domain.controller to javafx.fxml;
+
+    // Open model package to Gson for JSON serialization/deserialization
+    opens com.domain.model to com.google.gson;
+
+    // Open additional controller packages if necessary
+    opens com.domain.controller.command to javafx.fxml;
 }
+
+

@@ -1,0 +1,18 @@
+[
+  {
+    "username": "admin",
+    "hashedPassword": "admin123",
+    "role": "ADMIN"
+  },
+  {
+    "username": "operator1",
+    "hashedPassword": "operator123",
+    "role": "OPERATOR"
+  },
+  {
+    "username": "customer1",
+    "hashedPassword": "customer123",
+    "role": "CUSTOMER"
+  }
+]
+

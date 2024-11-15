@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.MainController">
+    <top>
+        <MenuBar fx:id="menuBar">
+            <menus>
+                <Menu text="File">
+                    <items>
+                        <MenuItem text="Logout" onAction="#handleLogout" />
+                        <MenuItem text="Exit" onAction="#handleExit" />
+                    </items>
+                </Menu>
+                <Menu text="Manage" fx:id="manageMenu">
+                    <items>
+                        <MenuItem text="Orders" onAction="#handleManageOrders" />
+                        <MenuItem text="Menu" onAction="#handleManageMenu" />
+                        <MenuItem text="Users" onAction="#handleManageUsers" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <Label fx:id="welcomeLabel" text="Welcome to Sundevil Cafeteria!" style="-fx-font-size: 18px;" />
+    </center>
+</BorderPane>

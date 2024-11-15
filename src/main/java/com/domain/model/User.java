@@ -1,14 +1,20 @@
 package com.domain.model;
 
-public abstract class User {
+public class User {
     private String username;
-    private String password;
+    private String hashedPassword;
     private String role;
 
-    // Constructor
-    public User(String username, String password, String role) {
+    /**
+     * Constructs a User with the specified username, hashed password, and role.
+     *
+     * @param username The user's username.
+     * @param hashedPassword The user's hashed password.
+     * @param role The role of the user (e.g., ADMIN, OPERATOR, CUSTOMER).
+     */
+    public User(String username, String hashedPassword, String role) {
         this.username = username;
-        this.password = password;
+        this.hashedPassword = hashedPassword;
         this.role = role;
     }
 
@@ -21,12 +27,12 @@ public abstract class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getHashedPassword() {
+        return hashedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
     public String getRole() {
@@ -36,9 +42,6 @@ public abstract class User {
     public void setRole(String role) {
         this.role = role;
     }
-
-    public boolean authenticate(String password) {
-        return this.password.equals(password);
-    }
 }
+
 

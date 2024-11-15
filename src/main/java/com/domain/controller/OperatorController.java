@@ -12,7 +12,7 @@ import javafx.event.ActionEvent;
 
 import java.util.List;
 
-public class OrderManager {
+public class OperatorController {
 
     @FXML
     private ListView<String> orderListView;
@@ -28,7 +28,7 @@ public class OrderManager {
 
     private OrderManagerModel orderManagerModel;
 
-    public OrderManager() {
+    public OperatorController() {
         this.orderManagerModel = OrderManagerModel.getInstance(); // Singleton pattern for managing orders
     }
 

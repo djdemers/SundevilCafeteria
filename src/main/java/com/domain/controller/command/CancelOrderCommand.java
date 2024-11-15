@@ -1,5 +1,6 @@
-package com.domain.controller;
+package com.domain.controller.command;
 
+import com.domain.controller.Command;
 import com.domain.model.Order;
 import java.util.List;
 

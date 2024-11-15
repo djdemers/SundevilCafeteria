@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-public class MenuManager {
+public class ManagerController {
 
     @FXML
     private ListView<String> menuListView;
@@ -39,7 +39,7 @@ public class MenuManager {
 
     private Menu menu;
 
-    public MenuManager() {
+    public ManagerController() {
         this.menu = Menu.getInstance(); // Singleton pattern for menu
     }
 
