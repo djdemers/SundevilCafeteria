@@ -81,7 +81,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.domain.HelloApplication</mainClass>
+                            <mainClass>com.domain.MainApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>
