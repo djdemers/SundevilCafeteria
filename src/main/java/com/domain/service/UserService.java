@@ -27,5 +27,41 @@ public class UserService {
         return Optional.ofNullable(user);
     }
 
-    // Additional user-related methods can be added here
+    /**
+     * Checks if a username or email is already taken.
+     *
+     * @param username The username to check.
+     * @param email The email to check.
+     * @return True if either is taken; false otherwise.
+     */
+    public boolean isUsernameOrEmailTaken(String username, String email) {
+        return userManager.isUsernameOrEmailTaken(username, email);
+    }
+
+    /**
+     * Registers a new customer.
+     *
+     * @param username      The username of the customer.
+     * @param email         The email of the customer.
+     * @param plainPassword The plain-text password of the customer.
+     * @return True if registration is successful; false otherwise.
+     */
+    public boolean registerCustomer(String username, String email, String plainPassword) {
+        // Validate input parameters
+        if (username == null || email == null || plainPassword == null ||
+                username.isBlank() || email.isBlank() || plainPassword.isBlank()) {
+            System.err.println("Invalid input: All fields must be filled.");
+            return false;
+        }
+
+        // Check if username or email is already taken
+        if (userManager.isUsernameOrEmailTaken(username, email)) {
+            System.err.println("Registration failed: Username or email is already in use.");
+            return false;
+        }
+
+        // Register the new customer
+        return userManager.registerUser(username, email, plainPassword, "CUSTOMER");
+    }
+
 }

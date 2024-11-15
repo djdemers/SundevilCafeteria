@@ -8,13 +8,23 @@
     <children>
         <VBox alignment="CENTER" spacing="15.0" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
             <children>
+                <!-- Existing login fields -->
                 <Label text="Sundevil Cafeteria Login" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
                 <TextField fx:id="usernameField" promptText="Username" />
                 <PasswordField fx:id="passwordField" promptText="Password" />
                 <Button text="Login" onAction="#handleLogin" maxWidth="100" />
                 <Label fx:id="errorLabel" textFill="red" />
+
+                <!-- Sign-up fields -->
+                <Label text="New Customer? Sign Up Below" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                <TextField fx:id="signUpUsernameField" promptText="New Username" />
+                <TextField fx:id="signUpEmailField" promptText="Email Address" />
+                <PasswordField fx:id="signUpPasswordField" promptText="New Password" />
+                <Button text="Sign Up" onAction="#handleSignUp" maxWidth="100" />
+                <Label fx:id="signUpErrorLabel" textFill="red" />
             </children>
         </VBox>
     </children>
 </AnchorPane>
+
 

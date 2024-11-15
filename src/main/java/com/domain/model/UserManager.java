@@ -1,6 +1,7 @@
 package com.domain.model;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.domain.util.PasswordUtils;
 
@@ -55,43 +56,69 @@ public class UserManager {
         return null; // Authentication failed
     }
 
+    /**
+     * Checks if a username or email is already taken.
+     *
+     * @param username The username to check.
+     * @param email    The email to check.
+     * @return True if either username or email is taken; false otherwise.
+     */
+    public boolean isUsernameOrEmailTaken(String username, String email) {
+        for (User user : users.values()) {
+            // Check for username match
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
 
-    public boolean addUser(String username, String password, String role) {
-        if (username == null || password == null || role == null || users.containsKey(username)) {
-            return false;
+            // Check for email match only if the user is a Customer
+            if (user instanceof Customer) {
+                Customer customer = (Customer) user;
+                if (customer.getEmail().equals(email)) {
+                    return true;
+                }
+            }
         }
+        return false;
+    }
+    /**
+     * Registers a new customer.
+     *
+     * @param username      The customer's username.
+     * @param email         The customer's email address.
+     * @param plainPassword The customer's plain-text password.
+     * @return True if registration is successful; false otherwise.
+     */
+    public boolean registerCustomer(String username, String email, String plainPassword) {
+        if (isUsernameOrEmailTaken(username, email)) {
+            return false; // Username or email already taken
+        }
+
         String salt = PasswordUtils.generateSalt();
-        String hashedPassword = PasswordUtils.hashPassword(password, salt);
-        User user = new User(username, hashedPassword, salt, role);
-        users.put(username, user);
+        String hashedPassword = PasswordUtils.hashPassword(plainPassword, salt);
+
+        Customer customer = new Customer(username, hashedPassword, salt, email, null, null); // null for phone/address
+        users.put(username, customer);
         saveUsers();
         return true;
     }
 
-
     /**
-     * Removes an existing user from the user repository and persists the change to users.json.
+     * Admin adds a manager or operator.
      *
-     * @param username The username of the user to be removed.
-     * @return true if the user was successfully removed; false otherwise.
+     * @param adminUsername The username of the admin.
+     * @param newUser       The new manager or operator user to be added.
+     * @return True if the admin has privileges and the user is added; false otherwise.
      */
-    public boolean removeUser(String username) {
-        if (users.containsKey(username)) {
-            users.remove(username);
-            saveUsers();
-            return true;
+    public boolean addManagerOrOperator(String adminUsername, User newUser) {
+        User admin = users.get(adminUsername);
+        if (admin != null && "ADMIN".equals(admin.getRole())) {
+            if (!users.containsKey(newUser.getUsername())) {
+                users.put(newUser.getUsername(), newUser);
+                saveUsers();
+                return true;
+            }
         }
-        return false;
-    }
-
-    /**
-     * Retrieves a user by their username.
-     *
-     * @param username The username of the user to retrieve.
-     * @return The User object if found; otherwise, null.
-     */
-    public User getUser(String username) {
-        return users.get(username);
+        return false; // Either not an admin or username already exists
     }
 
     /**
@@ -143,8 +170,9 @@ public class UserManager {
      */
     private void saveUsers() {
         try (Writer writer = Files.newBufferedWriter(Paths.get(USER_FILE_PATH))) {
+            Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
             List<User> userList = new ArrayList<>(users.values());
-            gson.toJson(userList, writer);
+            prettyGson.toJson(userList, writer);
         } catch (IOException e) {
             e.printStackTrace(); // Replace with proper logging
             // Handle exception (e.g., notify admin, retry saving, etc.)
@@ -159,4 +187,34 @@ public class UserManager {
     public List<User> getAllUsers() {
         return new ArrayList<>(users.values());
     }
+    /**
+     * Registers a new user with the given details.
+     *
+     * @param username      The username of the user.
+     * @param email         The email of the user.
+     * @param plainPassword The plain-text password of the user.
+     * @param role          The role of the user (e.g., CUSTOMER).
+     * @return True if registration is successful; false otherwise.
+     */
+    public boolean registerUser(String username, String email, String plainPassword, String role) {
+        if (users.containsKey(username)) {
+            return false; // Username already exists
+        }
+
+        String salt = PasswordUtils.generateSalt();
+        String hashedPassword = PasswordUtils.hashPassword(plainPassword, salt);
+
+        // Create a new user instance (for customers, use Customer class)
+        User newUser;
+        if ("CUSTOMER".equals(role)) {
+            newUser = new Customer(username, hashedPassword, salt, email, null, null);
+        } else {
+            newUser = new User(username, hashedPassword, salt, role);
+        }
+
+        users.put(username, newUser);
+        saveUsers();
+        return true;
+    }
+
 }

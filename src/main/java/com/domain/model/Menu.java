@@ -50,6 +50,14 @@ public class Menu {
                 .filter(item -> item.getType().equalsIgnoreCase(type))
                 .collect(Collectors.toList());
     }
+    public MenuItem getMenuItemByName(String name) {
+        for (MenuItem item : menuItems) {
+            if (item.getName().equalsIgnoreCase(name)) {
+                return item;
+            }
+        }
+        return null; // Return null if no item is found
+    }
 
     public void addMenuItem(MenuItem item) {
         menuItems.add(item);

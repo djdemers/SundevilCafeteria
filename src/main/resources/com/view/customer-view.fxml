@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.domain.controller.UserManager">
-    <TextField fx:id="usernameField" promptText="Username"/>
-    <PasswordField fx:id="passwordField" promptText="Password"/>
-    <Button text="Login" onAction="#handleLogin"/>
-    <Label fx:id="loginStatusLabel"/>
-</VBox>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.CustomerController">
+    <children>
+        <VBox spacing="15.0" alignment="CENTER" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <HBox spacing="10.0" alignment="CENTER">
+                <Button fx:id="breakfastButton" text="Breakfast" />
+                <Button fx:id="lunchButton" text="Lunch" />
+                <Button fx:id="dinnerButton" text="Dinner" />
+                <Button fx:id="beveragesButton" text="Beverages" />
+            </HBox>
+            <HBox spacing="20.0">
+                <VBox spacing="10.0">
+                    <Label text="Menu Items" />
+                    <ListView fx:id="menuListView" prefWidth="300" prefHeight="400" />
+                </VBox>
+                <VBox spacing="10.0">
+                    <Label text="Cart" />
+                    <ListView fx:id="cartListView" prefWidth="300" prefHeight="400" />
+                    <Label fx:id="totalLabel" text="Total: $0.00" />
+                    <Button fx:id="checkoutButton" text="Checkout" onAction="#handleCheckout" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

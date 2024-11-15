@@ -16,4 +16,4 @@ password: admin123
 role: Manager
 
 username: operator1
-password: operator123
+password: op123
