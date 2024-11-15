@@ -9,3 +9,11 @@ mvn dependency:tree
 
 
 mvn exec:java "-Dexec.mainClass=com.domain.util.PasswordHasher" "-Dexec.args=admin123"
+
+
+username: "admin"
+password: admin123
+role: Manager
+
+username: operator1
+password: operator123

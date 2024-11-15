@@ -18,7 +18,8 @@ public class PasswordHasher {
         String hashedPassword = PasswordUtils.hashPassword(plainPassword, salt);
 
         System.out.println("Plain Password: " + plainPassword);
-        System.out.println("Salt: " + salt);
-        System.out.println("Hashed Password: " + hashedPassword);
+        System.out.println("\"hashedPassword\": " + "\"" + hashedPassword + "\",");
+        System.out.println("\"salt\": " + "\"" + salt + "\",");
+
     }
 }

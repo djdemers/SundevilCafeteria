@@ -1,0 +1,20 @@
+[
+  {
+    "username": "admin",
+    "hashedPassword": "MDv3bECgQXu9c7ynpv6i1EgJUdv5g9U+1TPBJpJES7s=",
+    "salt": "xvRqKbAeTrqCivsgSqGO3A==",
+    "role": "MANAGER"
+  },
+  {
+    "username": "operator1",
+    "hashedPassword": "zUsiSISVQQAT7oe5en2QpWXqsUXrmUKYbjeDBbfZ+FU=\n",
+    "salt": "V9QrrvmTFSZzk7RCu/wI3w==",
+    "role": "OPERATOR"
+  },
+  {
+    "username": "customer1",
+    "hashedPassword": "HycrjeJzhFtZFFjvs87rHbneP6EVaTYiogTeDEHtJHk=\n",
+    "salt": "IyadpjTPtkP/eW2sYqJM3w==",
+    "role": "CUSTOMER"
+  }
+]
