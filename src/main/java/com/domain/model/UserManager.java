@@ -2,6 +2,7 @@ package com.domain.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.domain.util.PasswordUtils;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -9,7 +10,7 @@ import java.nio.file.*;
 import java.util.*;
 
 /**
- * Singleton class to manage user authentication and user data with persistent storage (user.json).
+ * Singleton class to manage user authentication and user data with persistent storage (users.json).
  */
 public class UserManager {
 
@@ -20,7 +21,7 @@ public class UserManager {
 
     /**
      * Private constructor to enforce Singleton pattern.
-     * Initializes the user repository by loading users from user.json.
+     * Initializes the user repository by loading users from users.json.
      */
     private UserManager() {
         users = new HashMap<>();
@@ -48,29 +49,28 @@ public class UserManager {
      */
     public User authenticateUser(String username, String password) {
         User user = users.get(username);
-        if (user != null && password.equals(user.getHashedPassword())) {
+        if (user != null && PasswordUtils.verifyPassword(password, user.getHashedPassword(), user.getSalt())) {
             return user;
         }
         return null; // Authentication failed
     }
 
-    /**
-     * Adds a new user to the user repository and persists the change to user.json.
-     *
-     * @param user The User object to be added.
-     * @return true if the user was added successfully; false if the user already exists.
-     */
-    public boolean addUser(User user) {
-        if (user != null && !users.containsKey(user.getUsername())) {
-            users.put(user.getUsername(), user);
-            saveUsers();
-            return true;
+
+    public boolean addUser(String username, String password, String role) {
+        if (username == null || password == null || role == null || users.containsKey(username)) {
+            return false;
         }
-        return false;
+        String salt = PasswordUtils.generateSalt();
+        String hashedPassword = PasswordUtils.hashPassword(password, salt);
+        User user = new User(username, hashedPassword, salt, role);
+        users.put(username, user);
+        saveUsers();
+        return true;
     }
 
+
     /**
-     * Removes an existing user from the user repository and persists the change to user.json.
+     * Removes an existing user from the user repository and persists the change to users.json.
      *
      * @param username The username of the user to be removed.
      * @return true if the user was successfully removed; false otherwise.
@@ -95,14 +95,19 @@ public class UserManager {
     }
 
     /**
-     * Updates an existing user's information and persists the change to user.json.
+     * Updates an existing user's password and persists the change to users.json.
      *
-     * @param user The User object with updated information.
+     * @param username    The username of the user to update.
+     * @param newPassword The new plain-text password.
      * @return true if the update was successful; false otherwise.
      */
-    public boolean updateUser(User user) {
-        if (user != null && users.containsKey(user.getUsername())) {
-            users.put(user.getUsername(), user);
+    public boolean updateUserPassword(String username, String newPassword) {
+        User user = users.get(username);
+        if (user != null && newPassword != null) {
+            String newSalt = PasswordUtils.generateSalt();
+            String newHashedPassword = PasswordUtils.hashPassword(newPassword, newSalt);
+            user.setSalt(newSalt);
+            user.setHashedPassword(newHashedPassword);
             saveUsers();
             return true;
         }
@@ -110,18 +115,18 @@ public class UserManager {
     }
 
     /**
-     * Loads users from the user.json file into the users map.
+     * Loads users from the users.json file into the users map.
      */
     private void loadUsers() {
-        try (InputStream is = getClass().getResourceAsStream("/users.json")) {
-            if (is == null) {
-                System.err.println("user.json not found in resources.");
-                return;
-            }
-            Reader reader = new InputStreamReader(is);
+        Path path = Paths.get(USER_FILE_PATH);
+        if (!Files.exists(path)) {
+            System.err.println("users.json not found. A new one will be created upon adding users.");
+            return;
+        }
+
+        try (Reader reader = Files.newBufferedReader(path)) {
             Type userListType = new TypeToken<List<User>>() {}.getType();
             List<User> userList = gson.fromJson(reader, userListType);
-            reader.close();
 
             if (userList != null) {
                 for (User user : userList) {
@@ -134,15 +139,12 @@ public class UserManager {
     }
 
     /**
-     * Saves the current users map to the user.json file.
+     * Saves the current users map to the users.json file.
      */
     private void saveUsers() {
-        try {
-            Path path = Paths.get(USER_FILE_PATH);
-            Writer writer = Files.newBufferedWriter(path);
+        try (Writer writer = Files.newBufferedWriter(Paths.get(USER_FILE_PATH))) {
             List<User> userList = new ArrayList<>(users.values());
             gson.toJson(userList, writer);
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace(); // Replace with proper logging
             // Handle exception (e.g., notify admin, retry saving, etc.)

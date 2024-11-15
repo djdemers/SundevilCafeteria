@@ -6,3 +6,6 @@ mvn dependency:tree
 
 
 ./mvnw javafx:run
+
+
+mvn exec:java "-Dexec.mainClass=com.domain.util.PasswordHasher" "-Dexec.args=admin123"

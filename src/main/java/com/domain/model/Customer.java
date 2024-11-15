@@ -1,6 +1,7 @@
 package com.domain.model;
 
-import java.util.ArrayList;
+import com.domain.util.PasswordUtils;
+
 import java.util.List;
 
 public class Customer extends User {
@@ -8,14 +9,26 @@ public class Customer extends User {
     private List<Order> orderHistory;
 
     /**
-     * Constructs a Customer with the specified username and plain-text password.
-     * The password is hashed before being passed to the User constructor.
+     * Constructs a new Customer with a username and plain-text password.
      *
-     * @param username The customer's username.
-     * @param plainPassword The customer's plain-text password.
+     * @param username      The username of the customer.
+     * @param plainPassword The plain-text password of the customer.
      */
     public Customer(String username, String plainPassword) {
-        super(username, com.domain.util.PasswordUtils.hashPassword(plainPassword), "CUSTOMER");
+        // Generate a unique salt and hash the password before calling super
+        this(username, PasswordUtils.hashPassword(plainPassword, PasswordUtils.generateSalt()), PasswordUtils.generateSalt());
+    }
+
+    /**
+     * Overloaded constructor to create a Customer with pre-hashed password and salt.
+     * Useful when loading users from persistent storage.
+     *
+     * @param username       The username of the customer.
+     * @param hashedPassword The already hashed password.
+     * @param salt           The salt used for hashing.
+     */
+    public Customer(String username, String hashedPassword, String salt) {
+        super(username, hashedPassword, salt, "CUSTOMER");
     }
 
     public void addOrder(Order order) {
