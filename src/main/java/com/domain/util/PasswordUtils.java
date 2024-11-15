@@ -7,6 +7,20 @@ import java.util.Base64;
 
 /**
  * Utility class for password hashing and verification using SHA-256 with salt.
+ *
+ * Purpose:
+ * - Provides secure methods to hash passwords with random salts.
+ * - Supports password verification by comparing stored hash and salt values.
+ *
+ * Security:
+ * - Uses SHA-256 as the hashing algorithm.
+ * - Generates random salts using SecureRandom to ensure unpredictability.
+ *
+ * Usage:
+ * 1. Generate a random salt using generateSalt()
+ * 2. Hash the password with the salt using hashPassword()
+ * 3. Verify the password later with verifyPassword()
+ *
  */
 public class PasswordUtils {
 
@@ -17,6 +31,7 @@ public class PasswordUtils {
      * Generates a random salt using SecureRandom.
      *
      * @return The generated salt as a Base64-encoded string.
+     *
      */
     public static String generateSalt() {
         SecureRandom sr = new SecureRandom();
@@ -30,7 +45,9 @@ public class PasswordUtils {
      *
      * @param password The plain-text password.
      * @param salt     The salt as a Base64-encoded string.
+     *
      * @return The hashed password as a Base64-encoded string.
+     *
      */
     public static String hashPassword(String password, String salt) {
         try {
@@ -49,7 +66,9 @@ public class PasswordUtils {
      * @param password       The plain-text password to verify.
      * @param storedHash     The stored hashed password (Base64-encoded).
      * @param storedSalt     The stored salt (Base64-encoded).
+     *
      * @return true if the password matches; false otherwise.
+     *
      */
     public static boolean verifyPassword(String password, String storedHash, String storedSalt) {
         String hashedInput = hashPassword(password, storedSalt);

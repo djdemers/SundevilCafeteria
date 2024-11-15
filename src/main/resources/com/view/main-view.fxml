@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.MainController">
-    <top>
-        <MenuBar fx:id="menuBar">
-            <menus>
-                <Menu text="File">
-                    <items>
-                        <MenuItem text="Logout" onAction="#handleLogout" />
-                        <MenuItem text="Exit" onAction="#handleExit" />
-                    </items>
-                </Menu>
-                <Menu text="Manage" fx:id="manageMenu">
-                    <items>
-                        <MenuItem text="Orders" onAction="#handleManageOrders" />
-                        <MenuItem text="Menu" onAction="#handleManageMenu" />
-                        <MenuItem text="Users" onAction="#handleManageUsers" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-    </top>
-    <center>
-        <Label fx:id="welcomeLabel" text="Welcome to Sundevil Cafeteria!" style="-fx-font-size: 18px;" />
-    </center>
-</BorderPane>
+<!-- Manager Main Screen -->
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.MainController" prefWidth="400.0" prefHeight="600.0">
+    <children>
+        <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
+            <children>
+                <!-- Title -->
+                <Label fx:id="welcomeLabel" text="Manager Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+                <!-- Buttons -->
+                <Button fx:id="manageMenuButton" text="Manage Menu" onAction="#handleManageMenu" maxWidth="200" />
+                <Button fx:id="systemSettingsButton" text="System Settings" onAction="#handleSystemSettings" maxWidth="200" />
+                <!-- Uncomment these buttons when the respective methods are implemented -->
+                <!-- <Button fx:id="manageUsersButton" text="Manage Users" onAction="#handleManageUsers" maxWidth="200" /> -->
+                <!-- <Button fx:id="viewReportsButton" text="View Reports" onAction="#handleViewReports" maxWidth="200" /> -->
+                <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout" maxWidth="200" style="-fx-background-color: red; -fx-text-fill: white;" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
+
+

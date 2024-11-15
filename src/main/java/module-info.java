@@ -6,9 +6,8 @@ module com.domain {
 
     // Required external libraries
     requires com.google.gson;
-    //requires jbcrypt;
     requires org.slf4j;
-    //requires logback.classic;
+
     // Exported packages
     exports com.domain;
 

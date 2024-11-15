@@ -5,7 +5,7 @@
     <Label text="Order Management" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
     <TextField fx:id="customerNameField" promptText="Customer Name"/>
     <TextField fx:id="orderDetailsField" promptText="Order Details"/>
-    <ListView fx:id="orderListView" prefHeight="200.0" prefWidth="300.0" />
+    <ListView fx:id="orderListView" prefHeight="400.0" prefWidth="400.0" />
     <Button text="Update Order Status" onAction="#handleUpdateOrderStatus" />
     <Button text="View Order Details" onAction="#handleViewOrderDetails" />
     <Label fx:id="orderStatusLabel" style="-fx-text-fill: red;" />

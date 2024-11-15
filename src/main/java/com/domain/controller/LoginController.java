@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,9 @@ public class LoginController {
     private PasswordField signUpPasswordField;
 
     @FXML
+    private Region dummyRegion;
+
+    @FXML
     private Label signUpErrorLabel;
 
     private UserService userService;
@@ -43,6 +47,22 @@ public class LoginController {
     public LoginController() {
         this.userService = new UserService();
     }
+
+    @FXML
+    public void initialize() {
+        if (dummyRegion != null) {
+            dummyRegion.sceneProperty().addListener((observable, oldScene, newScene) -> {
+                if (newScene != null) {
+                    newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
+                        if (newWindow != null) {
+                            dummyRegion.requestFocus();
+                        }
+                    });
+                }
+            });
+        }
+    }
+
 
     @FXML
     private void handleLogin() {
@@ -109,7 +129,7 @@ public class LoginController {
             String viewPath;
             switch (user.getRole().toUpperCase()) {
                 case "MANAGER":
-                    viewPath = "/com/view/manager-view.fxml";
+                    viewPath = "/com/view/main-view.fxml";
                     break;
                 case "OPERATOR":
                     viewPath = "/com/view/operator-view.fxml";
