@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.domain.controller.ManagerController">
+    <ListView fx:id="menuListView" prefHeight="600.0" prefWidth="800.0" />
+
+    <HBox spacing="10.0">
+        <Button fx:id="breakfastButton" text="Breakfast" />
+        <Button fx:id="lunchButton" text="Lunch" />
+        <Button fx:id="dinnerButton" text="Dinner" />
+        <Button fx:id="beveragesButton" text="Beverages" />
+    </HBox>
+
+    <TextField fx:id="itemNameField" promptText="Item Name" />
+    <TextField fx:id="itemPriceField" promptText="Item Price" />
+    <TextField fx:id="itemDescriptionField" promptText="Item Description" />
+
+    <HBox spacing="10.0">
+        <Button text="Add Item" onAction="#handleAddItem" />
+        <Button text="Remove Item" onAction="#handleRemoveItem" />
+        <Button text="Edit Description" onAction="#handleEditDescription" />
+        <Button text="Edit Price" onAction="#handleEditPrice" />
+    </HBox>
+
+    <Label fx:id="statusLabel" />
+</VBox>

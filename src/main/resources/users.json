@@ -1,0 +1,34 @@
+[
+  {
+    "username": "operator1",
+    "hashedPassword": "VfqvulHNjcjRnf3SH0BBeBMqYvaGEuVjOGmNuBwtyfs=",
+    "salt": "IwN6AuBHfQnEBCuC5P5qZQ==",
+    "role": "OPERATOR"
+  },
+  {
+    "email": "devil@asu.edu",
+    "orderHistory": [],
+    "username": "devil",
+    "hashedPassword": "zwOp+4kY7poqXtQvqs6CYLbrnfWdmxBNuwOsCRyY0Fw\u003d",
+    "salt": "Ek4CWUQKqQbsP6q20xKp/Q\u003d\u003d",
+    "role": "CUSTOMER"
+  },
+  {
+    "username": "admin",
+    "hashedPassword": "MDv3bECgQXu9c7ynpv6i1EgJUdv5g9U+1TPBJpJES7s\u003d",
+    "salt": "xvRqKbAeTrqCivsgSqGO3A\u003d\u003d",
+    "role": "MANAGER"
+  },
+  {
+    "username": "sparky",
+    "hashedPassword": "oZuwiJJYxqAjrTX8u1TOqYFTyYIETIgRtd9nKMtsBSE\u003d",
+    "salt": "vepUJqnQPaTY1oF08CvKjQ\u003d\u003d",
+    "role": "CUSTOMER"
+  },
+  {
+    "username": "customer1",
+    "hashedPassword": "HycrjeJzhFtZFFjvs87rHbneP6EVaTYiogTeDEHtJHk\u003d\n",
+    "salt": "IyadpjTPtkP/eW2sYqJM3w\u003d\u003d",
+    "role": "CUSTOMER"
+  }
+]
