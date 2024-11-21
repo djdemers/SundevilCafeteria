@@ -2,6 +2,9 @@ package com.domain.controller.command;
 
 import com.domain.model.Order;
 import com.domain.model.OrderFactory;
+import com.domain.model.OrderManager;
+import com.domain.service.OrderService;
+
 import java.util.List;
 
 /**
@@ -13,6 +16,7 @@ import java.util.List;
  */
 public class CreateOrderCommand implements Command {
     private List<Order> orderList;        // The list of orders where the new order will be added
+    private OrderService orderService;    // The order manager for managing orders
     private OrderFactory orderFactory;   // Factory for creating Order instances
     private Order order;                 // The newly created order
     private String orderId;              // ID of the new order
@@ -34,6 +38,7 @@ public class CreateOrderCommand implements Command {
         this.orderId = orderId;
         this.customerName = customerName;
         this.orderDetails = orderDetails;
+        this.orderService = new OrderService();
     }
 
     /**
@@ -43,6 +48,7 @@ public class CreateOrderCommand implements Command {
     public void execute() {
         order = orderFactory.createOrder(orderId, customerName, orderDetails);
         orderList.add(order);
+        orderService.createOrder(orderId, customerName, orderDetails);
         System.out.println("Order created: " + orderId);
     }
 
@@ -53,6 +59,7 @@ public class CreateOrderCommand implements Command {
     public void undo() {
         if (order != null) {
             orderList.remove(order);
+            orderService.cancelOrder(orderId);
             System.out.println("Order creation undone: " + orderId);
         }
     }

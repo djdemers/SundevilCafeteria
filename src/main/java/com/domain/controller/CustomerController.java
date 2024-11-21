@@ -4,6 +4,7 @@ import com.domain.controller.command.CreateOrderCommand;
 import com.domain.model.*;
 import com.domain.model.Menu;
 import com.domain.model.MenuItem;
+import com.domain.service.OrderService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -135,6 +136,8 @@ public class CustomerController {
                 customer.getUsername(),      // Customer's username
                 orderDetails                 // Order details
         );
+
+
 
         createOrderCommand.execute();
 

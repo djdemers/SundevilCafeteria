@@ -42,18 +42,34 @@ public class OrderManager {
     }
 
     /**
-     * Updates the status of an order by its name or details.
+     * Updates the status of an order by its ID.
      * If the order is found, the status is updated.
      *
-     * @param orderName The name or details of the order to update.
+     * @param orderID The orderID of the order to update.
      */
-    public void updateOrderStatus(String orderName) {
+    public void updateOrderStatus(String orderID, String status) {
         for (Order order : orders) {
-            if (order.getOrderDetails().equals(orderName)) {
-                order.updateStatus("Updated Status"); // Example status
+            if (order.getOrderId().equals(orderID)) {
+                order.updateStatus(status);
                 return;
             }
         }
+    }
+
+    /**
+     * Removes an order from the order list by its ID.
+     * If the order is found, it is removed and observers are notified.
+     *
+     * @param orderID The orderID of the order to remove.
+     */
+    public void removeOrder(String orderID) {
+        Order ord = getOrderById(orderID);
+        if (ord != null) {
+            ord.updateStatus("Cancelled");
+        }
+        orders.removeIf(order -> order.getOrderId().equals(orderID));
+
+
     }
 
     /**
