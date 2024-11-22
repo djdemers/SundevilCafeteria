@@ -1,6 +1,8 @@
 // OrderManager Class
 package com.domain.model;
 
+import com.domain.repository.OrderRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +12,14 @@ import java.util.List;
  */
 public class OrderManager {
     private static OrderManager instance; // Singleton instance
-    private List<Order> orders;          // List of all orders
+    private OrderRepository orderRepository;
 
     /**
      * Private constructor to enforce Singleton pattern.
      * Initializes an empty list of orders.
      */
     private OrderManager() {
-        orders = new ArrayList<>();
+        orderRepository = new OrderRepository();
     }
 
     /**
@@ -38,7 +40,7 @@ public class OrderManager {
      * @param order The order to be added.
      */
     public void addOrder(Order order) {
-        orders.add(order);
+        orderRepository.addOrder(order);
     }
 
     /**
@@ -48,11 +50,10 @@ public class OrderManager {
      * @param orderID The orderID of the order to update.
      */
     public void updateOrderStatus(String orderID, String status) {
-        for (Order order : orders) {
-            if (order.getOrderId().equals(orderID)) {
-                order.updateStatus(status);
-                return;
-            }
+        Order newOrder = orderRepository.getOrderById(orderID);
+        if (newOrder != null) {
+            newOrder.updateStatus(status);
+            orderRepository.updateOrder(newOrder);
         }
     }
 
@@ -63,13 +64,7 @@ public class OrderManager {
      * @param orderID The orderID of the order to remove.
      */
     public void removeOrder(String orderID) {
-        Order ord = getOrderById(orderID);
-        if (ord != null) {
-            ord.updateStatus("Cancelled");
-        }
-        orders.removeIf(order -> order.getOrderId().equals(orderID));
-
-
+        orderRepository.removeOrder(orderID);
     }
 
     /**
@@ -78,7 +73,7 @@ public class OrderManager {
      * @return A copy of the list of all orders.
      */
     public List<Order> getAllOrders() {
-        return new ArrayList<>(orders); // Defensive copying
+        return orderRepository.getAllOrders();
     }
 
     /**
@@ -88,7 +83,7 @@ public class OrderManager {
      * @return The status of the customer's order, or null if no order is found.
      */
     public String getOrderStatusByCustomer(String customerName) {
-        for (Order order : orders) {
+        for (Order order : orderRepository.getAllOrders()) {
             if (order.getCustomerName().equals(customerName)) {
                 return order.getStatus();
             }
@@ -103,12 +98,7 @@ public class OrderManager {
      * @return The matching order, or null if no order is found.
      */
     public Order getOrderById(String orderId) {
-        for (Order order : orders) {
-            if (order.getOrderId().equals(orderId)) {
-                return order;
-            }
-        }
-        return null; // No matching order found
+        return orderRepository.getOrderById(orderId);
     }
 }
 

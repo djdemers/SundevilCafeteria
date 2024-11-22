@@ -29,7 +29,10 @@
                     <Label text="Cart" />
                     <ListView fx:id="cartListView" prefWidth="300" prefHeight="400" />
                     <Label fx:id="totalLabel" text="Total: $0.00" />
-                    <Button fx:id="checkoutButton" text="Checkout" onAction="#handleCheckout" />
+                    <HBox spacing="10.0">
+                        <Button fx:id="checkoutButton" text="Checkout" onAction="#handleCheckout" />
+                        <Button fx:id="orderHistoryButton" text="Order History" onAction="#displayOrderHistory" />
+                    </HBox>
                 </VBox>
             </HBox>
         </VBox>

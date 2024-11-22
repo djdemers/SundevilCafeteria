@@ -152,12 +152,25 @@ public class UserManager {
         }
 
         try (Reader reader = Files.newBufferedReader(path)) {
-            Type userListType = new TypeToken<List<User>>() {}.getType();
-            List<User> userList = gson.fromJson(reader, userListType);
+            Type userListType = new TypeToken<List<Map<String, Object>>>() {}.getType();
+            List<Map<String, Object>> userList = gson.fromJson(reader, userListType);
 
             if (userList != null) {
-                for (User user : userList) {
-                    users.put(user.getUsername(), user);
+                for (Map<String, Object> userMap : userList) {
+                    String username = (String) userMap.get("username");
+                    String hashedPassword = (String) userMap.get("hashedPassword");
+                    String salt = (String) userMap.get("salt");
+                    String role = (String) userMap.get("role");
+
+                    User user;
+                    if ("CUSTOMER".equals(role)) {
+                        String email = (String) userMap.get("email");
+                        user = new Customer(username, hashedPassword, salt, email, null, null);
+                    } else {
+                        user = new User(username, hashedPassword, salt, role);
+                    }
+
+                    users.put(username, user);
                 }
             }
         } catch (IOException e) {

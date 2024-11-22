@@ -1,5 +1,11 @@
 package com.domain.ui;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.layout.VBox;
+
 /**
  * Utility class for creating and managing custom dialog boxes in the UI.
  *
@@ -61,6 +67,22 @@ public class CustomDialogBox {
      * @param contentNodes Additional custom UI elements to include in the dialog.
      */
     public static void showCustomDialog(String title, String message, Object... contentNodes) {
-        // TODO: Implement logic to allow dynamic content in custom dialog boxes.
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle(title);
+        alert.setHeaderText(message);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        VBox dialogContent = new VBox();
+        dialogContent.setSpacing(10);
+
+        for (Object node : contentNodes) {
+            if (node instanceof javafx.scene.Node) {
+                dialogContent.getChildren().add((javafx.scene.Node) node);
+            }
+        }
+
+        dialogPane.setContent(dialogContent);
+        alert.getButtonTypes().add(ButtonType.OK);
+        alert.showAndWait();
     }
 }

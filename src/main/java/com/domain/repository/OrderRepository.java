@@ -1,6 +1,15 @@
 package com.domain.repository;
 
+import com.domain.exception.GlobalExceptionHandler;
 import com.domain.model.Order;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,19 +28,43 @@ import java.util.List;
  */
 public class OrderRepository {
 
+    private static final String ORDER_DATA_FILE = "src/main/resources/com/orders.json"; // Path to JSON file
+    private List<Order> orders;
+    private Gson gson = new Gson(); // Gson instance for JSON serialization/deserialization
+
+    public OrderRepository() {
+        loadOrders();
+    }
+
     /**
-     * Retrieves all orders from the data source.
+     * Returns a collection of all orders.
      *
-     * TODO:
-     * - Implement logic to fetch all orders from the storage system.
+     *
      * - Return a collection of orders (List<Order>).
      *
      * @return A collection of all orders.
      */
     public List<Order> getAllOrders() {
-        // Placeholder for implementation
-        return null;
+        return new ArrayList<>(orders); // Return a copy of the orders list
     }
+
+    /**
+     * Loads orders from the JSON file into memory.
+     *
+     * - If the file exists, the data is deserialized into the `orders` list.
+     * - If the file does not exist or is empty, initializes an empty list.
+     */
+     private void loadOrders() {
+        try (FileReader reader = new FileReader(ORDER_DATA_FILE)) {
+            Type orderListType = new TypeToken<ArrayList<Order>>() {}.getType();
+            orders = gson.fromJson(reader, orderListType);
+            if (orders == null) { // Handle case where JSON is valid but empty
+                orders = new ArrayList<>();
+            }
+        } catch (Exception e) {
+            orders = new ArrayList<>(); // Handle case where file is missing or invalid
+        }
+     }
 
     /**
      * Retrieves an order by its ID.
@@ -44,7 +77,11 @@ public class OrderRepository {
      * @return The matching order, or null if not found.
      */
     public Order getOrderById(String orderId) {
-        // Placeholder for implementation
+        for (Order order : orders) {
+            if (order.getOrderId().equals(orderId)) {
+                return order;
+            }
+        }
         return null;
     }
 
@@ -59,7 +96,11 @@ public class OrderRepository {
      * @return True if the order was added successfully; false otherwise.
      */
     public boolean addOrder(Order order) {
-        // Placeholder for implementation
+        if (order != null && !orders.contains(order)) {
+            orders.add(order);
+            saveChanges();
+            return true;
+        }
         return false;
     }
 
@@ -74,7 +115,13 @@ public class OrderRepository {
      * @return True if the order was updated successfully; false otherwise.
      */
     public boolean updateOrder(Order order) {
-        // Placeholder for implementation
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getOrderId().equals(order.getOrderId())) {
+                orders.set(i, order);
+                saveChanges();
+                return true;
+            }
+        }
         return false;
     }
 
@@ -89,7 +136,13 @@ public class OrderRepository {
      * @return True if the order was removed successfully; false otherwise.
      */
     public boolean removeOrder(String orderId) {
-        // Placeholder for implementation
+        for (Order order : orders) {
+            if (order.getOrderId().equals(orderId)) {
+                orders.remove(order);
+                saveChanges();
+                return true;
+            }
+        }
         return false;
     }
 
@@ -101,6 +154,10 @@ public class OrderRepository {
      * - Optimize for efficiency when dealing with large data sets.
      */
     public void saveChanges() {
-        // Placeholder for implementation
+        try (FileWriter writer = new FileWriter(ORDER_DATA_FILE)) {
+            gson.toJson(orders, writer);
+        } catch (IOException e) {
+            GlobalExceptionHandler.handleException(e); // Handle file write errors
+        }
     }
 }

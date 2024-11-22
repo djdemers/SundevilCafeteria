@@ -3,6 +3,7 @@ package com.domain.service;
 import com.domain.exception.GlobalExceptionHandler;
 import com.domain.exception.OrderCreationException;
 import com.domain.model.*;
+import com.domain.repository.OrderRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,7 @@ public class OrderService {
     private OrderManager orderManager;
     private OrderFactory orderFactory;
     private Menu menu;
+    private OrderRepository orderRepository;
 
 
     /**
@@ -59,7 +61,7 @@ public class OrderService {
             GlobalExceptionHandler.handleException(new OrderCreationException("Customer name cannot be empty"));
         }
 
-        List<String> items = Arrays.asList(orderDetails.split(","));
+        List<String> items = Arrays.asList(orderDetails.split(", "));
         if (items.isEmpty()) {
             GlobalExceptionHandler.handleException(new OrderCreationException("Order details cannot be empty"));
         }

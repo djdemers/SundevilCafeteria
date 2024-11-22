@@ -62,6 +62,10 @@ public class CustomerController {
         this.customer = customer;
     }
 
+    /**
+     *
+     */
+
     @FXML
     private void initialize() {
         breakfastButton.setOnAction(event -> loadMenuItems("Breakfast"));
