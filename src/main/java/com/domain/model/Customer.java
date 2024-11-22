@@ -1,5 +1,6 @@
 package com.domain.model;
 
+import com.domain.service.OrderService;
 import com.domain.util.PasswordUtils;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Customer extends User {
     private String phoneNumber; // Customer's phone number
     private String address;    // Customer's physical address
     private List<Order> orderHistory; // List of the customer's past orders
+    private OrderService orderService = new OrderService();
 
     /**
      * Constructs a new Customer with a username, plain-text password, email, and contact info.
@@ -79,12 +81,13 @@ public class Customer extends User {
         this.customerId = customerId;
     }
 
-    // Methods to manage order history
-    public void addOrder(Order order) {
-        orderHistory.add(order);
-    }
-
     public List<Order> getOrderHistory() {
+        orderHistory.clear();
+        for (Order order : orderService.getAllOrders()) {
+            if (order.getCustomerName().equals(this.getUsername())) {
+                orderHistory.add(order);
+            }
+        }
         return orderHistory;
     }
 }

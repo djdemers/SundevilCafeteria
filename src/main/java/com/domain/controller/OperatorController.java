@@ -64,30 +64,43 @@ public class OperatorController {
 
     @FXML
     private void handleUpdateOrderStatus(ActionEvent event) {
-        String selectedOrder = orderListView.getSelectionModel().getSelectedItem().split(" ")[0].trim();
-        if (selectedOrder != null) {
+        String selectedOrder = orderListView.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null && !selectedOrder.isEmpty()) {
+            selectedOrder = selectedOrder.split(" ")[0].trim();
             Order order = orderManagerModel.getOrderById(selectedOrder);
             if (order != null) {
 
                 Button pendingButton = new Button("Set Pending");
+                String finalSelectedOrder = selectedOrder;
                 pendingButton.setOnAction(e -> {
-                    orderService.updateOrderStatus(selectedOrder, "Pending");
+                    orderService.updateOrderStatus(finalSelectedOrder, "Pending");
                     statusLabel.setText("Order status updated to Pending.");
                     loadOrders(); // Refresh order list
                 });
                 Button preparingButton = new Button("Set Preparing");
                 preparingButton.setOnAction(e -> {
-                    orderService.updateOrderStatus(selectedOrder, "Preparing");
+                    orderService.updateOrderStatus(finalSelectedOrder, "Preparing");
                     statusLabel.setText("Order status updated to Preparing.");
                     loadOrders(); // Refresh order list
                 });
                 Button completedButton = new Button("Set Completed");
                 completedButton.setOnAction(e -> {
-                    orderService.updateOrderStatus(selectedOrder, "Completed");
+                    orderService.updateOrderStatus(finalSelectedOrder, "Completed");
                     statusLabel.setText("Order status updated to Completed.");
                     loadOrders(); // Refresh order list
                 });
-                CustomDialogBox.showCustomDialog("Update Order Status", "Select a new status for " + selectedOrder + ": ",
+                Button removeButton = new Button("Remove From Order List");
+                removeButton.setOnAction(e -> {
+                    orderService.cancelOrder(finalSelectedOrder);
+                    statusLabel.setText("Order removed from list.");
+                    loadOrders(); // Refresh order list
+                });
+
+                if (order.getStatus().equalsIgnoreCase("Completed")) {
+                    CustomDialogBox.showCustomDialog("Update Order Status", "Select a new status for " + finalSelectedOrder + ": ",
+                            pendingButton, preparingButton, completedButton, removeButton);
+                }
+                CustomDialogBox.showCustomDialog("Update Order Status", "Select a new status for " + finalSelectedOrder + ": ",
                         pendingButton, preparingButton, completedButton);
 
             }
@@ -98,8 +111,9 @@ public class OperatorController {
 
     @FXML
     private void handleViewOrderDetails(ActionEvent event) {
-        String selectedOrder = orderListView.getSelectionModel().getSelectedItem().split(" ")[0].trim();
-        if (selectedOrder != null) {
+        String selectedOrder = orderListView.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null && !selectedOrder.isEmpty()) {
+            selectedOrder = selectedOrder.split(" ")[0].trim();
             statusLabel.setText("Viewing details for: " + selectedOrder);
             Order order = orderManagerModel.getOrderById(selectedOrder);
             if (order != null) {

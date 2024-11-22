@@ -77,8 +77,9 @@ public class OrderRepository {
      * @return The matching order, or null if not found.
      */
     public Order getOrderById(String orderId) {
+        loadOrders();
         for (Order order : orders) {
-            if (order.getOrderId().equals(orderId)) {
+            if (order.getOrderId().equalsIgnoreCase(orderId)) {
                 return order;
             }
         }
