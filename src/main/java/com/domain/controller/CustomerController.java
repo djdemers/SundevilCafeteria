@@ -153,4 +153,9 @@ public class CustomerController {
         totalLabel.setText("Order placed successfully!");
     }
 
+    @FXML
+    private void displayOrderHistory() {
+        //TODO
+    }
+
 }
