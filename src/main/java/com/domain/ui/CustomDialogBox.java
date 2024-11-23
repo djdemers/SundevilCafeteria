@@ -6,6 +6,8 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.VBox;
 
+import java.util.Optional;
+
 /**
  * Utility class for creating and managing custom dialog boxes in the UI.
  *
@@ -33,7 +35,10 @@ public class CustomDialogBox {
      * @param message The message to display in the dialog box.
      */
     public static void showError(String title, String message) {
-        // TODO: Implement logic to display an error dialog using JavaFX Alert.
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(message);
+        alert.showAndWait();
     }
 
     /**
@@ -56,7 +61,10 @@ public class CustomDialogBox {
      * @param message The message to display in the dialog box.
      */
     public static void showInfo(String title, String message) {
-        // TODO: Implement logic to display an informational dialog.
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(message);
+        alert.showAndWait();
     }
 
     /**
@@ -66,7 +74,7 @@ public class CustomDialogBox {
      * @param message      The message to display in the dialog box.
      * @param contentNodes Additional custom UI elements to include in the dialog.
      */
-    public static void showCustomDialog(String title, String message, Object... contentNodes) {
+    public static boolean showCustomDialog(String title, String message, Object... contentNodes) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle(title);
         alert.setHeaderText(message);
@@ -83,6 +91,9 @@ public class CustomDialogBox {
 
         dialogPane.setContent(dialogContent);
         alert.getButtonTypes().add(ButtonType.OK);
-        alert.showAndWait();
+        alert.getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 }

@@ -2,6 +2,7 @@ package com.domain.service;
 
 import com.domain.model.User;
 import com.domain.model.UserManager;
+import com.domain.util.PasswordUtils;
 
 import java.util.Optional;
 
@@ -96,10 +97,32 @@ public class UserService {
     }
 
     /**
-     * TODO: Add support for manager and operator registration by admin.
-     * Example:
-     * - Validate admin privileges before registering managers or operators.
-     * - Ensure unique usernames and emails for new users.
+     * Adds a new operator with the specified username and password.
+     *
+     * @param adminUsername The username of the admin adding the operator.
+     * @param username The username of the new operator.
+     * @param plainPassword The plain-text password of the new operator.
+     * @return True if the operator was added successfully; false otherwise.
      */
+    public boolean addOperator(String adminUsername, String username, String plainPassword) {
+        String salt = PasswordUtils.generateSalt();
+        String hashedPassword = PasswordUtils.hashPassword(plainPassword, salt);
+
+        return userManager.addManagerOrOperator(adminUsername, new User(username, hashedPassword, salt, "OPERATOR"));
+    }
+
+    /**
+     * Adds a new manager with the specified username and password.
+     * @param adminUsername The username of the admin adding the manager.
+     * @param username The username of the new manager.
+     * @param plainPassword The plain-text password of the new manager.
+     * @return True if the manager was added successfully; false otherwise.
+     */
+    public boolean addManager(String adminUsername, String username, String plainPassword) {
+        String salt = PasswordUtils.generateSalt();
+        String hashedPassword = PasswordUtils.hashPassword(plainPassword, salt);
+
+        return userManager.addManagerOrOperator(adminUsername, new User(username, hashedPassword, salt, "MANAGER"));
+    }
 }
 

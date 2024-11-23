@@ -25,7 +25,7 @@ public class MainController {
     private Button manageMenuButton; // Button to navigate to menu management.
 
     @FXML
-    private Button systemSettingsButton; // Placeholder for system settings functionality.
+    private Button manageUsersButton; // Placeholder for system settings functionality.
 
     @FXML
     private Button logoutButton; // Button to log out and return to the login view.
@@ -55,7 +55,7 @@ public class MainController {
         String role = user.getRole();
         if (!role.equalsIgnoreCase("MANAGER")) {
             manageMenuButton.setDisable(true); // Disable manage menu for non-managers.
-            systemSettingsButton.setDisable(true); // Disable system settings for non-managers.
+            manageUsersButton.setDisable(true); // Disable system settings for non-managers.
         }
     }
 
@@ -67,12 +67,9 @@ public class MainController {
         navigateToView("/com/view/manager-view.fxml", "Manage Menu");
     }
 
-    /**
-     * Navigates to the System Settings view.
-     */
     @FXML
-    private void handleSystemSettings() {
-        navigateToView("/com/view/system-settings-view.fxml", "System Settings");
+    private void handleManageUsers() {
+        navigateToView("/com/view/manage-users-view.fxml", "Manage Users");
     }
 
     /**
@@ -90,9 +87,10 @@ public class MainController {
             if (title.equals("Manage Menu")) {
                 ManagerController controller = loader.getController();
                 controller.setParentController(this); // Link back to MainController
-            } else if (title.equals("System Settings")) {
-                SystemSettingsController controller = loader.getController();
+            } else if (title.equals("Manage Users")) {
+                ManageUsersController controller = loader.getController();
                 controller.setParentController(this); // Link back to MainController
+                controller.setUser(user);
             }
 
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();

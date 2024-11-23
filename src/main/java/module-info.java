@@ -18,7 +18,7 @@ module com.domain {
     opens com.domain.controller to javafx.fxml;
 
     // Open model package to Gson for JSON serialization/deserialization
-    opens com.domain.model to com.google.gson;
+    opens com.domain.model to com.google.gson, javafx.base;
 
     // Open additional controller packages if necessary
     opens com.domain.controller.command to javafx.fxml;

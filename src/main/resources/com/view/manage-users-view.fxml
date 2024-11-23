@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.ManageUsersController" prefWidth="400.0" prefHeight="600.0">
+    <VBox spacing="15.0">
+        <children>
+            <Label text="Manage Users" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+            <TableView fx:id="usersTable" prefWidth="400.0" prefHeight="400.0" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="usernameColumn" text="Username" />
+                    <TableColumn fx:id="roleColumn" text="Role" />
+                </columns>
+            </TableView>
+            <HBox alignment="CENTER" spacing="20.0">
+                <children>
+                    <Button fx:id="addUserButton" text="Add User" onAction="#handleAddUser" maxWidth="200" />
+                    <Button fx:id="deleteUserButton" text="Delete User" onAction="#handleDeleteUser" maxWidth="200" />
+                    <Button fx:id="backButton" text="Back" onAction="#handleBack" maxWidth="200" />
+                </children>
+            </HBox>
+        </children>
+    </VBox>
+</AnchorPane>

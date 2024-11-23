@@ -111,7 +111,7 @@ public class UserManager {
      */
     public boolean addManagerOrOperator(String adminUsername, User newUser) {
         User admin = users.get(adminUsername);
-        if (admin != null && "ADMIN".equals(admin.getRole())) {
+        if (admin != null && "MANAGER".equals(admin.getRole())) {
             if (!users.containsKey(newUser.getUsername())) {
                 users.put(newUser.getUsername(), newUser);
                 saveUsers();
@@ -221,8 +221,12 @@ public class UserManager {
         User newUser;
         if ("CUSTOMER".equals(role)) {
             newUser = new Customer(username, hashedPassword, salt, email, null, null);
+        } else if ("MANAGER".equals(role)) {
+            newUser = new Manager(username, hashedPassword, salt);
+        } else if ("OPERATOR".equals(role)) {
+            newUser = new Operator(username, hashedPassword, salt);
         } else {
-            newUser = new User(username, hashedPassword, salt, role);
+            return false; // Invalid role
         }
 
         users.put(username, newUser);

@@ -14,10 +14,7 @@
 
                 <!-- Buttons -->
                 <Button fx:id="manageMenuButton" text="Manage Menu" onAction="#handleManageMenu" maxWidth="200" />
-                <Button fx:id="systemSettingsButton" text="System Settings" onAction="#handleSystemSettings" maxWidth="200" />
-                <!-- Uncomment these buttons when the respective methods are implemented -->
-                <!-- <Button fx:id="manageUsersButton" text="Manage Users" onAction="#handleManageUsers" maxWidth="200" /> -->
-                <!-- <Button fx:id="viewReportsButton" text="View Reports" onAction="#handleViewReports" maxWidth="200" /> -->
+                <Button fx:id="manageUsersButton" text="Manage Users" onAction="#handleManageUsers" maxWidth="200" />
                 <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout" maxWidth="200" style="-fx-background-color: red; -fx-text-fill: white;" />
             </children>
         </VBox>
