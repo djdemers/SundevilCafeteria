@@ -6,10 +6,12 @@ import com.domain.model.Menu;
 import com.domain.model.MenuItem;
 import com.domain.service.OrderService;
 import com.domain.ui.CustomDialogBox;
+import com.domain.util.NavigationUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,9 @@ public class CustomerController {
 
     @FXML
     private ListView<String> orderHistoryListView;
+
+    @FXML
+    private Button logoutButton;
 
 
     private Menu menu;
@@ -222,6 +227,15 @@ public class CustomerController {
     private void handleBack() {
         orderHistoryView.setVisible(false);
         mainView.setVisible(true);
+    }
+
+    /**
+     * Logs out the user and navigates back to the login view.
+     */
+    @FXML
+    private void handleLogout() {
+        Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+        NavigationUtils.navigateToLogin(currentStage);
     }
 
 }

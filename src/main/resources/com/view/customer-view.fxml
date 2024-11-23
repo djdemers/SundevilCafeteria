@@ -5,51 +5,47 @@
 <?import javafx.scene.layout.*?>
 
 <!-- Customer View FXML for Sundevil Cafeteria -->
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.CustomerController">
-    <!-- Main Customer View -->
-    <AnchorPane fx:id="mainView">
-        <VBox spacing="15.0" alignment="CENTER" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.CustomerController">
+    <children>
+        <!-- Main Content -->
+        <VBox spacing="20.0" alignment="CENTER" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0"
               AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-            <!-- Buttons for selecting menu categories -->
+
+            <!-- Title Section -->
+            <Label text="Customer Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+            <!-- Menu Category Buttons -->
             <HBox spacing="10.0" alignment="CENTER">
-                <Button fx:id="breakfastButton" text="Breakfast"/>
-                <Button fx:id="lunchButton" text="Lunch"/>
-                <Button fx:id="dinnerButton" text="Dinner"/>
-                <Button fx:id="beveragesButton" text="Beverages"/>
+                <Button fx:id="breakfastButton" text="Breakfast" />
+                <Button fx:id="lunchButton" text="Lunch" />
+                <Button fx:id="dinnerButton" text="Dinner" />
+                <Button fx:id="beveragesButton" text="Beverages" />
             </HBox>
 
-            <!-- Layout for Menu Items and Cart -->
-            <HBox spacing="20.0">
+            <!-- Menu and Cart Section -->
+            <HBox spacing="20.0" alignment="CENTER">
                 <!-- Menu Items Section -->
                 <VBox spacing="10.0">
-                    <Label text="Menu Items"/>
-                    <ListView fx:id="menuListView" prefWidth="300" prefHeight="400"/>
-                    <HBox alignment="CENTER_RIGHT" >
-                        <Button fx:id="orderHistoryButton" text="Order History" onAction="#displayOrderHistory"/>
-                    </HBox>
+                    <Label text="Menu Items" />
+                    <ListView fx:id="menuListView" prefWidth="300" prefHeight="400" />
                 </VBox>
 
                 <!-- Cart Section -->
                 <VBox spacing="10.0">
-                    <Label text="Cart"/>
-                    <ListView fx:id="cartListView" prefWidth="300" prefHeight="400"/>
-                    <Label fx:id="totalLabel" text="Total: $0.00"/>
-                    <Button fx:id="checkoutButton" text="Checkout" onAction="#handleCheckout"/>
+                    <Label text="Cart" />
+                    <ListView fx:id="cartListView" prefWidth="300" prefHeight="400" />
+                    <Label fx:id="totalLabel" text="Total: $0.00" />
                 </VBox>
             </HBox>
-        </VBox>
-    </AnchorPane>
 
-    <!-- Order History Subview -->
-    <AnchorPane fx:id="orderHistoryView" visible="false">
-        <VBox spacing="15.0" alignment="CENTER" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-            <Label text="Order History" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-            <ListView fx:id="orderHistoryListView" prefWidth="400" prefHeight="400"/>
-            <HBox spacing="10.0" alignment="CENTER">
-                <Button text="Back" onAction="#handleBack"/>
-                <Button text="Manage Order" onAction="#manageOrder"/>
-            </HBox>
+            <!-- Centered Buttons Section -->
+            <VBox spacing="10.0" alignment="CENTER">
+                <Button fx:id="checkoutButton" text="Checkout" onAction="#handleCheckout" maxWidth="150" />
+                <Button fx:id="orderHistoryButton" text="View Order History" onAction="#displayOrderHistory" maxWidth="150" />
+                <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout" maxWidth="150"
+                        style="-fx-background-color: red; -fx-text-fill: white;" />
+            </VBox>
         </VBox>
-    </AnchorPane>
-</StackPane>
+    </children>
+</AnchorPane>
+
