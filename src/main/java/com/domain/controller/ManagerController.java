@@ -3,10 +3,15 @@ package com.domain.controller;
 import com.domain.model.Menu;
 import com.domain.model.MenuItem;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ManagerController {
 
@@ -36,11 +41,44 @@ public class ManagerController {
 
     @FXML
     private Label statusLabel;
+    private MainController parentController;
+    @FXML
+    private Button backButton; // Back button for returning to MainController
 
     private Menu menu;
 
     public ManagerController() {
         this.menu = Menu.getInstance(); // Singleton pattern for menu
+    }
+
+    /**
+     * Sets the parent controller reference.
+     *
+     * @param parentController The MainController instance.
+     */
+    public void setParentController(MainController parentController) {
+        this.parentController = parentController;
+    }
+
+    /**
+     * Handles the "Back" button action to return to the main view.
+     */
+    @FXML
+    private void handleBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/view/main-view.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            MainController mainController = loader.getController();
+            mainController.setUser(parentController.getUser());
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Sundevil Cafeteria - Manager Dashboard");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Log or display the exception
+        }
     }
 
     @FXML
@@ -140,5 +178,7 @@ public class ManagerController {
             statusLabel.setText("Price must be a valid number.");
         }
     }
+
+
 }
 

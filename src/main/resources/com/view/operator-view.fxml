@@ -6,5 +6,7 @@
     <ListView fx:id="orderListView" prefHeight="400.0" prefWidth="400.0" />
     <Button text="Update Order Status" onAction="#handleUpdateOrderStatus" />
     <Button text="View Order Details" onAction="#handleViewOrderDetails" />
+    <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout"
+            style="-fx-background-color: red; -fx-text-fill: white;" />
     <Label fx:id="statusLabel" style="-fx-text-fill: red;" />
 </VBox>

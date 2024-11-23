@@ -21,6 +21,8 @@
         <Button text="Remove Item" onAction="#handleRemoveItem" />
         <Button text="Edit Description" onAction="#handleEditDescription" />
         <Button text="Edit Price" onAction="#handleEditPrice" />
+        <Button fx:id="backButton" text="Back" onAction="#handleBack" />
+
     </HBox>
 
     <Label fx:id="statusLabel" />

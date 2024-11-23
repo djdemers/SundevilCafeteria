@@ -5,12 +5,14 @@ import com.domain.model.OrderManager;
 import com.domain.model.OrderStatusObserver;
 import com.domain.service.OrderService;
 import com.domain.ui.CustomDialogBox;
+import com.domain.util.NavigationUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,9 @@ public class OperatorController {
 
     @FXML
     private Button viewOrderDetailsButton;
+
+    @FXML
+    private Button logoutButton;
 
     @FXML
     private Label statusLabel;
@@ -128,5 +133,14 @@ public class OperatorController {
             statusLabel.setText("Please select an order to view details.");
         }
     }
+    /**
+     * Logs out the user and navigates back to the login view.
+     */
+    @FXML
+    private void handleLogout() {
+        Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+        NavigationUtils.navigateToLogin(currentStage);
+    }
+
 }
 
