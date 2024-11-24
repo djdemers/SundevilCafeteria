@@ -1,13 +1,5 @@
 [
   {
-    "email": "test@asu.edu",
-    "orderHistory": [],
-    "username": "pryce",
-    "hashedPassword": "dP6TTmVUhF1O5RGhAyS2skizkdsFJmz4IHRs2ToagTg\u003d",
-    "salt": "Dt4+16MVFV4p/8JTAP8FcA\u003d\u003d",
-    "role": "CUSTOMER"
-  },
-  {
     "username": "operator1",
     "hashedPassword": "VfqvulHNjcjRnf3SH0BBeBMqYvaGEuVjOGmNuBwtyfs\u003d",
     "salt": "IwN6AuBHfQnEBCuC5P5qZQ\u003d\u003d",
