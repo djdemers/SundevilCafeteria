@@ -12,7 +12,6 @@ public class OrderFactory {
     /**
      * Creates a new Order instance with the specified details.
      *
-     * @param orderId      Unique identifier for the order.
      * @param customerName Name of the customer placing the order.
      * @param orderDetails Details of the order (items and quantities).
      *
@@ -21,4 +20,5 @@ public class OrderFactory {
     public Order createOrder(String orderId, String customerName, String orderDetails) {
         return new Order(orderId, customerName, orderDetails);
     }
+
 }

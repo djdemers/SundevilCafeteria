@@ -111,7 +111,7 @@ public class UserManager {
      */
     public boolean addManagerOrOperator(String adminUsername, User newUser) {
         User admin = users.get(adminUsername);
-        if (admin != null && "ADMIN".equals(admin.getRole())) {
+        if (admin != null && "MANAGER".equals(admin.getRole())) {
             if (!users.containsKey(newUser.getUsername())) {
                 users.put(newUser.getUsername(), newUser);
                 saveUsers();
@@ -152,12 +152,25 @@ public class UserManager {
         }
 
         try (Reader reader = Files.newBufferedReader(path)) {
-            Type userListType = new TypeToken<List<User>>() {}.getType();
-            List<User> userList = gson.fromJson(reader, userListType);
+            Type userListType = new TypeToken<List<Map<String, Object>>>() {}.getType();
+            List<Map<String, Object>> userList = gson.fromJson(reader, userListType);
 
             if (userList != null) {
-                for (User user : userList) {
-                    users.put(user.getUsername(), user);
+                for (Map<String, Object> userMap : userList) {
+                    String username = (String) userMap.get("username");
+                    String hashedPassword = (String) userMap.get("hashedPassword");
+                    String salt = (String) userMap.get("salt");
+                    String role = (String) userMap.get("role");
+
+                    User user;
+                    if ("CUSTOMER".equals(role)) {
+                        String email = (String) userMap.get("email");
+                        user = new Customer(username, hashedPassword, salt, email, null, null);
+                    } else {
+                        user = new User(username, hashedPassword, salt, role);
+                    }
+
+                    users.put(username, user);
                 }
             }
         } catch (IOException e) {
@@ -168,7 +181,7 @@ public class UserManager {
     /**
      * Saves the current users map to the users.json file.
      */
-    private void saveUsers() {
+    public void saveUsers() {
         try (Writer writer = Files.newBufferedWriter(Paths.get(USER_FILE_PATH))) {
             Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
             List<User> userList = new ArrayList<>(users.values());
@@ -177,6 +190,11 @@ public class UserManager {
             e.printStackTrace(); // Replace with proper logging
             // Handle exception (e.g., notify admin, retry saving, etc.)
         }
+    }
+
+    public void deleteUser(String username) {
+        users.remove(username);
+        saveUsers();
     }
 
     /**
@@ -208,8 +226,12 @@ public class UserManager {
         User newUser;
         if ("CUSTOMER".equals(role)) {
             newUser = new Customer(username, hashedPassword, salt, email, null, null);
+        } else if ("MANAGER".equals(role)) {
+            newUser = new Manager(username, hashedPassword, salt);
+        } else if ("OPERATOR".equals(role)) {
+            newUser = new Operator(username, hashedPassword, salt);
         } else {
-            newUser = new User(username, hashedPassword, salt, role);
+            return false; // Invalid role
         }
 
         users.put(username, newUser);

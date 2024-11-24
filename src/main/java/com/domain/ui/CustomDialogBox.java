@@ -1,5 +1,13 @@
 package com.domain.ui;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.layout.VBox;
+
+import java.util.Optional;
+
 /**
  * Utility class for creating and managing custom dialog boxes in the UI.
  *
@@ -27,7 +35,10 @@ public class CustomDialogBox {
      * @param message The message to display in the dialog box.
      */
     public static void showError(String title, String message) {
-        // TODO: Implement logic to display an error dialog using JavaFX Alert.
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(message);
+        alert.showAndWait();
     }
 
     /**
@@ -39,8 +50,12 @@ public class CustomDialogBox {
      * @return True if the user confirms; false otherwise.
      */
     public static boolean showConfirmation(String title, String message) {
-        // TODO: Implement logic to display a confirmation dialog and return user's choice.
-        return false;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(message);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 
     /**
@@ -50,7 +65,10 @@ public class CustomDialogBox {
      * @param message The message to display in the dialog box.
      */
     public static void showInfo(String title, String message) {
-        // TODO: Implement logic to display an informational dialog.
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(message);
+        alert.showAndWait();
     }
 
     /**
@@ -60,7 +78,26 @@ public class CustomDialogBox {
      * @param message      The message to display in the dialog box.
      * @param contentNodes Additional custom UI elements to include in the dialog.
      */
-    public static void showCustomDialog(String title, String message, Object... contentNodes) {
-        // TODO: Implement logic to allow dynamic content in custom dialog boxes.
+    public static boolean showCustomDialog(String title, String message, Object... contentNodes) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle(title);
+        alert.setHeaderText(message);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        VBox dialogContent = new VBox();
+        dialogContent.setSpacing(10);
+
+        for (Object node : contentNodes) {
+            if (node instanceof javafx.scene.Node) {
+                dialogContent.getChildren().add((javafx.scene.Node) node);
+            }
+        }
+
+        dialogPane.setContent(dialogContent);
+        alert.getButtonTypes().add(ButtonType.OK);
+        alert.getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 }

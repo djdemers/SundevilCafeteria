@@ -1,5 +1,6 @@
 package com.domain.model;
 
+import com.domain.service.OrderService;
 import com.domain.util.PasswordUtils;
 
 import java.util.ArrayList;
@@ -79,7 +80,6 @@ public class Customer extends User {
         this.customerId = customerId;
     }
 
-    // Methods to manage order history
     public void addOrder(Order order) {
         orderHistory.add(order);
     }

@@ -1,6 +1,7 @@
 package com.domain.controller;
 
 import com.domain.exception.GlobalExceptionHandler;
+import com.domain.model.Customer;
 import com.domain.model.User;
 import com.domain.service.UserService;
 import javafx.fxml.FXML;
@@ -148,6 +149,12 @@ public class LoginController {
             Object controller = loader.getController();
             if (controller instanceof MainController) {
                 ((MainController) controller).setUser(user);
+            } else if (controller instanceof CustomerController) {
+                if (user instanceof Customer) {
+                    ((CustomerController) controller).setCustomer((Customer) user);
+                } else {
+                    throw new IllegalArgumentException("Invalid user type for CustomerController: " + user.getClass());
+                }
             }
 
             Stage stage = (Stage) usernameField.getScene().getWindow();

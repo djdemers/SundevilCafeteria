@@ -4,9 +4,14 @@ import com.domain.controller.command.CreateOrderCommand;
 import com.domain.model.*;
 import com.domain.model.Menu;
 import com.domain.model.MenuItem;
+import com.domain.service.OrderService;
+import com.domain.ui.CustomDialogBox;
+import com.domain.util.NavigationUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +21,12 @@ public class CustomerController {
 
     @FXML
     private ListView<String> menuListView;
+
+    @FXML
+    private AnchorPane mainView;
+
+    @FXML
+    private AnchorPane orderHistoryView;
 
     @FXML
     private VBox cartVBox;
@@ -41,15 +52,28 @@ public class CustomerController {
     @FXML
     private Button checkoutButton;
 
+    @FXML
+    private Button orderHistoryButton;
+
+    @FXML
+    private ListView<String> orderHistoryListView;
+
+    @FXML
+    private Button logoutButton;
+
+
     private Menu menu;
     private List<MenuItem> cart;
     private Customer customer;
 
-    private OrderFactory orderFactory;
+    private OrderService orderService;
+    private UserManager userManager;
 
     public CustomerController() {
         this.menu = Menu.getInstance(); // Singleton pattern for menu
         this.cart = new ArrayList<>();
+        this.orderService = new OrderService();
+        this.userManager = UserManager.getInstance();
     }
 
     /**
@@ -59,7 +83,21 @@ public class CustomerController {
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
+        for (Order order : orderService.getAllOrders()) {
+            if (order.getCustomerName().equalsIgnoreCase(this.customer.getUsername())) {
+                if (!this.customer.getOrderHistory().contains(order)) {
+                    this.customer.getOrderHistory().add(order);
+                } else {
+                    this.customer.getOrderHistory().remove(order);
+                    this.customer.getOrderHistory().add(order);
+                }
+            }
+        }
     }
+
+    /**
+     *
+     */
 
     @FXML
     private void initialize() {
@@ -80,6 +118,16 @@ public class CustomerController {
         menuListView.getItems().clear();
         for (MenuItem item : menu.getMenuItemsByType(menuType)) {
             menuListView.getItems().add(item.getName() + " - $" + item.getPrice() + "\n" + item.getDescription());
+        }
+    }
+
+    /**
+     * Loads the customer's order history.
+     */
+    private void loadOrderHistory() {
+        orderHistoryListView.getItems().clear();
+        for (Order order : customer.getOrderHistory()) {
+            orderHistoryListView.getItems().add(order.getOrderId() + " - " + order.getStatus());
         }
     }
 
@@ -136,6 +184,7 @@ public class CustomerController {
                 orderDetails                 // Order details
         );
 
+        userManager.saveUsers();
         createOrderCommand.execute();
 
         // Clear the cart and update the UI
@@ -144,6 +193,71 @@ public class CustomerController {
         updateTotal();
 
         totalLabel.setText("Order placed successfully!");
+        displayOrderHistory();
+    }
+
+    @FXML
+    private void manageOrder() {
+        String selectedOrder = orderHistoryListView.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null && !selectedOrder.isEmpty()) {
+            String finalSelectedOrder = selectedOrder.split(" ")[0].trim();
+            Order order = null;
+            for (Order o : customer.getOrderHistory()) {
+                if (o.getOrderId().equalsIgnoreCase(finalSelectedOrder)) {
+                    order = o;
+                }
+            }
+            if (order != null) {
+                Label orderNameLabel = new Label("Customer Name: " + order.getCustomerName());
+                Label orderStatusLabel = new Label("Order Status: " + order.getStatus());
+                Label orderDetailsLabel = new Label("Order Details: " + order.getOrderDetails());
+                Button cancelOrderButton = new Button("Cancel Order");
+                cancelOrderButton.setOnAction(e -> {
+                    orderService.cancelOrder(finalSelectedOrder);
+                    cancelOrder(finalSelectedOrder);
+                    loadOrderHistory();
+                });
+                CustomDialogBox.showCustomDialog("Order Details", "Details for order: " + finalSelectedOrder,
+                        orderNameLabel, orderStatusLabel, orderDetailsLabel, cancelOrderButton);
+            } else {
+                CustomDialogBox.showError("Error", "Order not found.");
+            }
+        } else {
+            CustomDialogBox.showError("Error", "Please select an order.");
+        }
+
+
+    }
+
+    private void cancelOrder(String orderId) {
+        for (Order order : customer.getOrderHistory()) {
+            if (order.getOrderId().equalsIgnoreCase(orderId)) {
+                customer.getOrderHistory().remove(order);
+                break;
+            }
+        }
+    }
+
+    @FXML
+    private void displayOrderHistory() {
+        mainView.setVisible(false);
+        loadOrderHistory();
+        orderHistoryView.setVisible(true);
+    }
+
+    @FXML
+    private void handleBack() {
+        orderHistoryView.setVisible(false);
+        mainView.setVisible(true);
+    }
+
+    /**
+     * Logs out the user and navigates back to the login view.
+     */
+    @FXML
+    private void handleLogout() {
+        Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+        NavigationUtils.navigateToLogin(currentStage);
     }
 
 }

@@ -2,6 +2,7 @@ package com.domain.controller;
 
 import com.domain.model.User;
 import com.domain.exception.GlobalExceptionHandler;
+import com.domain.util.NavigationUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -24,7 +25,7 @@ public class MainController {
     private Button manageMenuButton; // Button to navigate to menu management.
 
     @FXML
-    private Button systemSettingsButton; // Placeholder for system settings functionality.
+    private Button manageUsersButton; // Placeholder for system settings functionality.
 
     @FXML
     private Button logoutButton; // Button to log out and return to the login view.
@@ -42,6 +43,10 @@ public class MainController {
         configureUIBasedOnRole();
     }
 
+    public User getUser(){
+        return this.user;
+    }
+
     /**
      * Configures buttons and UI elements based on the user's role.
      * Ensures that only appropriate actions are accessible.
@@ -50,40 +55,51 @@ public class MainController {
         String role = user.getRole();
         if (!role.equalsIgnoreCase("MANAGER")) {
             manageMenuButton.setDisable(true); // Disable manage menu for non-managers.
-            systemSettingsButton.setDisable(true); // Disable system settings for non-managers.
+            manageUsersButton.setDisable(true); // Disable system settings for non-managers.
         }
     }
 
     /**
-     * Handles navigation to the Manage Menu view.
-     * Accessible only to users with the "MANAGER" role.
+     * Navigates to the Manage Menu view.
      */
     @FXML
     private void handleManageMenu() {
+        navigateToView("/com/view/manager-view.fxml", "Manage Menu");
+    }
+
+    @FXML
+    private void handleManageUsers() {
+        navigateToView("/com/view/manage-users-view.fxml", "Manage Users");
+    }
+
+    /**
+     * Navigates to a specified view.
+     *
+     * @param fxmlPath The path to the FXML file.
+     * @param title    The title of the new stage.
+     */
+    private void navigateToView(String fxmlPath, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/view/manager-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Scene scene = new Scene(loader.load());
 
-            ManagerController managerController = loader.getController();
-            // Pass user information if necessary (e.g., to log actions).
+            // Pass the user back to the target controller
+            if (title.equals("Manage Menu")) {
+                ManagerController controller = loader.getController();
+                controller.setParentController(this); // Link back to MainController
+            } else if (title.equals("Manage Users")) {
+                ManageUsersController controller = loader.getController();
+                controller.setParentController(this); // Link back to MainController
+                controller.setUser(user);
+            }
 
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("Manage Menu");
+            stage.setTitle("Sundevil Cafeteria - " + title);
             stage.show();
         } catch (IOException e) {
             GlobalExceptionHandler.handleException(e);
         }
-    }
-
-    /**
-     * Placeholder method for handling system settings.
-     * This can be implemented to open a new settings view.
-     */
-    @FXML
-    private void handleSystemSettings() {
-        // TODO: Implement system settings functionality.
-        System.out.println("System Settings functionality is under construction.");
     }
 
     /**
@@ -91,17 +107,8 @@ public class MainController {
      */
     @FXML
     private void handleLogout() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/view/login-view.fxml"));
-            Scene scene = new Scene(loader.load());
-
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Sundevil Cafeteria - Login");
-            stage.show();
-        } catch (IOException e) {
-            GlobalExceptionHandler.handleException(e);
-        }
+        Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+        NavigationUtils.navigateToLogin(currentStage);
     }
 }
 
