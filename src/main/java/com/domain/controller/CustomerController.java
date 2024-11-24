@@ -53,6 +53,9 @@ public class CustomerController {
     private Button checkoutButton;
 
     @FXML
+    private Button orderHistoryButton;
+
+    @FXML
     private ListView<String> orderHistoryListView;
 
     @FXML
@@ -64,13 +67,13 @@ public class CustomerController {
     private Customer customer;
 
     private OrderService orderService;
-    private OrderManager orderManager;
+    private UserManager userManager;
 
     public CustomerController() {
         this.menu = Menu.getInstance(); // Singleton pattern for menu
         this.cart = new ArrayList<>();
         this.orderService = new OrderService();
-        this.orderManager = OrderManager.getInstance();
+        this.userManager = UserManager.getInstance();
     }
 
     /**
@@ -80,6 +83,16 @@ public class CustomerController {
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
+        for (Order order : orderService.getAllOrders()) {
+            if (order.getCustomerName().equalsIgnoreCase(this.customer.getUsername())) {
+                if (!this.customer.getOrderHistory().contains(order)) {
+                    this.customer.getOrderHistory().add(order);
+                } else {
+                    this.customer.getOrderHistory().remove(order);
+                    this.customer.getOrderHistory().add(order);
+                }
+            }
+        }
     }
 
     /**
@@ -171,8 +184,7 @@ public class CustomerController {
                 orderDetails                 // Order details
         );
 
-
-
+        userManager.saveUsers();
         createOrderCommand.execute();
 
         // Clear the cart and update the UI
@@ -202,18 +214,28 @@ public class CustomerController {
                 Button cancelOrderButton = new Button("Cancel Order");
                 cancelOrderButton.setOnAction(e -> {
                     orderService.cancelOrder(finalSelectedOrder);
+                    cancelOrder(finalSelectedOrder);
                     loadOrderHistory();
                 });
                 CustomDialogBox.showCustomDialog("Order Details", "Details for order: " + finalSelectedOrder,
                         orderNameLabel, orderStatusLabel, orderDetailsLabel, cancelOrderButton);
             } else {
-
+                CustomDialogBox.showError("Error", "Order not found.");
             }
         } else {
-
+            CustomDialogBox.showError("Error", "Please select an order.");
         }
 
 
+    }
+
+    private void cancelOrder(String orderId) {
+        for (Order order : customer.getOrderHistory()) {
+            if (order.getOrderId().equalsIgnoreCase(orderId)) {
+                customer.getOrderHistory().remove(order);
+                break;
+            }
+        }
     }
 
     @FXML

@@ -107,6 +107,7 @@ public class OrderService {
         if (orderID == null || orderID.isEmpty()) {
             GlobalExceptionHandler.handleException(new OrderCreationException("Order ID cannot be empty, please try again."));
         }
+        orderManager.updateOrderStatus(orderID, "CANCELLED");
         orderManager.removeOrder(orderID);
     }
 

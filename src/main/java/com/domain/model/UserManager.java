@@ -181,7 +181,7 @@ public class UserManager {
     /**
      * Saves the current users map to the users.json file.
      */
-    private void saveUsers() {
+    public void saveUsers() {
         try (Writer writer = Files.newBufferedWriter(Paths.get(USER_FILE_PATH))) {
             Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
             List<User> userList = new ArrayList<>(users.values());
@@ -190,6 +190,11 @@ public class UserManager {
             e.printStackTrace(); // Replace with proper logging
             // Handle exception (e.g., notify admin, retry saving, etc.)
         }
+    }
+
+    public void deleteUser(String username) {
+        users.remove(username);
+        saveUsers();
     }
 
     /**

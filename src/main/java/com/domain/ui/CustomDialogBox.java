@@ -50,8 +50,12 @@ public class CustomDialogBox {
      * @return True if the user confirms; false otherwise.
      */
     public static boolean showConfirmation(String title, String message) {
-        // TODO: Implement logic to display a confirmation dialog and return user's choice.
-        return false;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(message);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 
     /**

@@ -114,7 +114,16 @@ public class ManageUsersController {
 
     @FXML
     private void handleDeleteUser() {
-        // Handle deleting an existing user
+        User selectedUser = usersTable.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            CustomDialogBox.showError("Error", "Please select a user to delete.");
+            return;
+        }
+        boolean success = CustomDialogBox.showConfirmation("Delete User", "You have selected User: " + selectedUser.getUsername() + ". Are you sure you want to delete this user?");
+        if (success) {
+            userManager.deleteUser(selectedUser.getUsername());
+        }
+        loadUsers();
     }
 
     @FXML

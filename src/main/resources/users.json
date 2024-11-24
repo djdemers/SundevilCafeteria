@@ -1,8 +1,16 @@
 [
   {
+    "email": "test@asu.edu",
+    "orderHistory": [],
+    "username": "pryce",
+    "hashedPassword": "dP6TTmVUhF1O5RGhAyS2skizkdsFJmz4IHRs2ToagTg\u003d",
+    "salt": "Dt4+16MVFV4p/8JTAP8FcA\u003d\u003d",
+    "role": "CUSTOMER"
+  },
+  {
     "username": "operator1",
-    "hashedPassword": "VfqvulHNjcjRnf3SH0BBeBMqYvaGEuVjOGmNuBwtyfs=",
-    "salt": "IwN6AuBHfQnEBCuC5P5qZQ==",
+    "hashedPassword": "VfqvulHNjcjRnf3SH0BBeBMqYvaGEuVjOGmNuBwtyfs\u003d",
+    "salt": "IwN6AuBHfQnEBCuC5P5qZQ\u003d\u003d",
     "role": "OPERATOR"
   },
   {
@@ -20,15 +28,11 @@
     "role": "MANAGER"
   },
   {
+    "email": "sparky@asu.edu",
+    "orderHistory": [],
     "username": "sparky",
     "hashedPassword": "oZuwiJJYxqAjrTX8u1TOqYFTyYIETIgRtd9nKMtsBSE\u003d",
     "salt": "vepUJqnQPaTY1oF08CvKjQ\u003d\u003d",
-    "role": "CUSTOMER"
-  },
-  {
-    "username": "customer1",
-    "hashedPassword": "HycrjeJzhFtZFFjvs87rHbneP6EVaTYiogTeDEHtJHk\u003d\n",
-    "salt": "IyadpjTPtkP/eW2sYqJM3w\u003d\u003d",
     "role": "CUSTOMER"
   }
 ]

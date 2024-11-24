@@ -98,5 +98,17 @@ public class Order {
     public void setOrderDetails(String orderDetails) {
         this.orderDetails = orderDetails;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Order order = (Order) obj;
+        return orderId.equals(order.orderId);
+    }
 }
 
