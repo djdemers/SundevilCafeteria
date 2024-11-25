@@ -1,0 +1,60 @@
+/* theme.css */
+
+/* General AnchorPane background */
+.anchor-pane {
+    -fx-background-color: white; /* white */
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #8E0C3A; /* Dark gold text */
+    -fx-font-weight: bold;
+}
+
+/* Title Labels */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8B8000; /* Dark gold text */
+}
+
+/* Error Labels */
+.label-error {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+
+/* Text Fields and Password Fields */
+.text-field, .password-field {
+    -fx-background-color: #FFF8DC; /* Light gold */
+    -fx-border-color: #8E0C3A; /* Maroon */
+    -fx-border-width: 2px;
+    -fx-text-fill: black;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #FFA500; /* Gold button */
+    -fx-text-fill: white; /* White text */
+    -fx-font-weight: bold;
+    -fx-border-color: #8B8000; /* Dark gold border */
+    -fx-border-width: 2px;
+}
+
+/* Button Hover Effect */
+.button:hover {
+    -fx-background-color: #FFD700; /* Slightly lighter gold on hover */
+    -fx-text-fill: black; /* Black text on hover */
+}
+
+/* VBox and HBox alignment */
+.vbox, .hbox {
+    -fx-alignment: center;
+}
+
+/* ListView */
+.list-view {
+    -fx-background-color: #FFF8DC; /* Light gold */
+    -fx-border-color: #8B8000; /* Dark gold border */
+    -fx-border-width: 2px;
+}
