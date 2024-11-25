@@ -98,16 +98,44 @@ public class CustomerController {
     /**
      *
      */
-
     @FXML
     private void initialize() {
+        // Load menu items by category
         breakfastButton.setOnAction(event -> loadMenuItems("Breakfast"));
         lunchButton.setOnAction(event -> loadMenuItems("Lunch"));
         dinnerButton.setOnAction(event -> loadMenuItems("Dinner"));
         beveragesButton.setOnAction(event -> loadMenuItems("Beverages"));
 
-        menuListView.setOnMouseClicked(event -> handleAddToCart());
+        // Add item to the cart on double-click
+        menuListView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) { // Detect double-click
+                String selectedItem = menuListView.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    String itemName = selectedItem.split(" - \\$")[0];
+                    MenuItem menuItem = menu.getMenuItemByName(itemName);
+                    if (menuItem != null) {
+                        cart.add(menuItem); // Add to the cart List
+                        cartListView.getItems().add(selectedItem); // Add to the cart ListView
+                        updateTotal(); // Update the total price
+                    }
+                }
+            }
+        });
+
+        // Remove item from the cart on double-click
+        cartListView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) { // Detect double-click
+                String selectedItem = cartListView.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    String itemName = selectedItem.split(" - \\$")[0];
+                    cart.removeIf(item -> item.getName().equals(itemName)); // Remove from the cart List
+                    cartListView.getItems().remove(selectedItem); // Remove from the cart ListView
+                    updateTotal(); // Update the total price
+                }
+            }
+        });
     }
+
 
     /**
      * Loads menu items based on the selected menu type.
@@ -152,9 +180,24 @@ public class CustomerController {
      * Updates the total price label based on the items in the cart.
      */
     private void updateTotal() {
-        double total = cart.stream().mapToDouble(MenuItem::getPrice).sum();
-        totalLabel.setText("Total: $" + String.format("%.2f", total));
+        double total = 0.0;
+
+        // Parse the price from each item string in the cart
+        for (String item : cartListView.getItems()) {
+            // Assuming each item is in the format: "Item Name - $Price\nDescription"
+            String[] parts = item.split(" - \\$");
+            if (parts.length > 1) {
+                try {
+                    total += Double.parseDouble(parts[1].split("\n")[0]); // Extract and add the price
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parsing price: " + item);
+                }
+            }
+        }
+
+        totalLabel.setText(String.format("Total: $%.2f", total));
     }
+
 
     /**
      * Handles the checkout process by creating an order and clearing the cart.

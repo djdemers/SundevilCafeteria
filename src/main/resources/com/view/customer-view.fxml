@@ -7,7 +7,7 @@
 <!-- Customer View FXML for Sundevil Cafeteria -->
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.CustomerController">
     <!-- Main Customer View -->
-    <AnchorPane fx:id="mainView">
+    <AnchorPane  styleClass="anchor-pane" fx:id="mainView" stylesheets="@styles/theme.css">
         <VBox spacing="15.0" alignment="CENTER" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0"
               AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
             <!-- Buttons for selecting menu categories -->

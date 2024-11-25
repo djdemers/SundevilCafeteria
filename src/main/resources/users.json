@@ -1,5 +1,19 @@
 [
   {
+    "username": "operator3",
+    "hashedPassword": "e86zu5ssSckxrVtZwYQ55QfbuUdt/Dv+CeBFWFE6f0g\u003d",
+    "salt": "g1o1q2BBwHeaoc4t5V0/VQ\u003d\u003d",
+    "role": "OPERATOR"
+  },
+  {
+    "email": "student2@asu.edu",
+    "orderHistory": [],
+    "username": "pryce",
+    "hashedPassword": "BwViD9zjzuvXt7s3UqKgvE+Lstd4hTkGctBBsVfBxqQ\u003d",
+    "salt": "DTC4VMhZ1tC0LNDlQSTKtQ\u003d\u003d",
+    "role": "CUSTOMER"
+  },
+  {
     "username": "operator1",
     "hashedPassword": "VfqvulHNjcjRnf3SH0BBeBMqYvaGEuVjOGmNuBwtyfs\u003d",
     "salt": "IwN6AuBHfQnEBCuC5P5qZQ\u003d\u003d",
@@ -21,10 +35,26 @@
   },
   {
     "email": "sparky@asu.edu",
-    "orderHistory": [],
+    "orderHistory": [
+      {
+        "orderId": "ORDER-1732491868443",
+        "customerName": "sparky",
+        "orderDetails": "Eggs Benedict",
+        "status": "Pending",
+        "observers": []
+      }
+    ],
     "username": "sparky",
     "hashedPassword": "oZuwiJJYxqAjrTX8u1TOqYFTyYIETIgRtd9nKMtsBSE\u003d",
     "salt": "vepUJqnQPaTY1oF08CvKjQ\u003d\u003d",
+    "role": "CUSTOMER"
+  },
+  {
+    "email": "student@asu.edu",
+    "orderHistory": [],
+    "username": "david",
+    "hashedPassword": "cskV8U/ETWbHE38Fh+aulIR1Ap+Y8oA3i9OT+p0V+PA\u003d",
+    "salt": "/rpBnAnXJObNvjB/OEuwdg\u003d\u003d",
     "role": "CUSTOMER"
   }
 ]

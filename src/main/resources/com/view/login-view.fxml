@@ -5,7 +5,10 @@
 <?import javafx.scene.layout.*?>
 
 <!-- Login and Sign-Up View for Sundevil Cafeteria -->
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.LoginController" prefWidth="400.0" prefHeight="600.0">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane styleClass="anchor-pane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.domain.controller.LoginController" prefWidth="400.0" prefHeight="600.0"
+            stylesheets="@styles/theme.css">
     <children>
         <Region fx:id="dummyRegion" focusTraversable="true"/>
         <VBox alignment="CENTER" spacing="15.0" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
@@ -24,6 +27,14 @@
                 <PasswordField fx:id="signUpPasswordField" promptText="New Password" />
                 <Button text="Sign Up" onAction="#handleSignUp" maxWidth="100" />
                 <Label fx:id="signUpErrorLabel" textFill="red" />
+                <!-- Footer Section -->
+                <VBox alignment="CENTER" spacing="10.0">
+                    <ImageView fitWidth="120" fitHeight="120" preserveRatio="true" style="-fx-translate-y: -45;">
+                        <image>
+                            <Image url="@images/sparky.jpg" />
+                        </image>
+                    </ImageView>
+                </VBox>
             </children>
         </VBox>
     </children>
